@@ -1,5 +1,5 @@
 //
-//  ThemeLoader.swift
+//  ThemeReader.swift
 //  PilgrimageKit
 //
 //  Created by Paul Schifferer on 28/5/18.
@@ -9,23 +9,23 @@
 import Foundation
 
 
-open class ThemeLoader {
-    
+open class ThemeReader {
+
     var baseURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-    
+
     open func load(url : URL) throws -> Theme {
         let fw = try FileWrapper(url: url, options: [ .immediate, .withoutMapping ])
-        
+
         guard let meta = try JSONSerialization.jsonObject(with: try loadWrapperContents(fw, named: "meta"), options: []) as? [String : String] else {
-            throw ThemeLoaderError.invalidContents("meta")
+            throw ThemeReaderError.invalidContents("meta")
         }
         let identifier = try get("id", from: meta)
         let name = try get("name", from: meta)
-        
+
         #if os(iOS)
         let barStyle : UIBarStyle
         guard let ui = try JSONSerialization.jsonObject(with: try loadWrapperContents(fw, named: "ui"), options: []) as? [String : Any] else {
-            throw ThemeLoaderError.invalidContents("ui")
+            throw ThemeReaderError.invalidContents("ui")
         }
         if let s = ui["barStyle"] as? String,
             let i = Int(s),
@@ -39,25 +39,25 @@ open class ThemeLoader {
 
         //        let iconImage : Image? = nil // TODO: icon image
         //        let backgroundImage : Image? = nil // TODO: background image
-        
+
         guard let fonts = try JSONSerialization.jsonObject(with: try loadWrapperContents(fw, named: "fonts"), options: []) as? [String : Any] else {
-            throw ThemeLoaderError.invalidContents("fonts")
+            throw ThemeReaderError.invalidContents("fonts")
         }
         let defaultFont = try processFont(fonts, named: "defaultFont")
         let labelFont = try processFont(fonts, named: "labelFont")
         let titleBarFont = try processFont(fonts, named: "titleBarFont")
         let buttonFont = try processFont(fonts, named: "buttonFont")
         let titleFont = try processFont(fonts, named: "titleFont")
-        
+
         guard let colors = try JSONSerialization.jsonObject(with: try loadWrapperContents(fw, named: "colors"), options: []) as? [String : String] else {
-            throw ThemeLoaderError.invalidContents("colors")
+            throw ThemeReaderError.invalidContents("colors")
         }
         let tintColor = try Color.from(hexValue: try get("tintColor", from: colors))
         let alternateTintColor = try Color.from(hexValue: try get("alternateTintColor", from: colors))
         let titleBarBackgroundColor = try Color.from(hexValue: try get("titleBarBackgroundColor", from: colors))
         let titleBarColor = try Color.from(hexValue: try get("titleBarColor", from: colors))
         let titleBarButtonColor = try Color.from(hexValue: try get("titleBarButtonColor", from: colors))
-        
+
         var theme = Theme(id: identifier, name: name)
         theme.defaultFont = defaultFont
         theme.labelFont = labelFont
@@ -72,15 +72,15 @@ open class ThemeLoader {
         #if os(iOS)
         theme.barStyle = barStyle
         #endif
-        
+
         return theme
     }
-    
+
     open func load(id : String) throws -> Theme {
         let url = baseURL.appendingPathComponent("\(id).theme")
         return try self.load(url: url)
     }
-    
+
     private func loadWrapperContents(_ wrapper : FileWrapper, named name : String) throws -> Data {
         if let wrappers = wrapper.fileWrappers,
             let w = wrappers["\(name).json"],
@@ -88,10 +88,10 @@ open class ThemeLoader {
          let s = String(data: d, encoding: .utf8) */ {
             return d
         }
-        
-        throw ThemeLoaderError.missingContents(name)
+
+        throw ThemeReaderError.missingContents(name)
     }
-    
+
     private func processFont(_ json : [String : Any], named name : String) throws -> Font {
         if let fontInfo = json[name] as? [String : Any],
             let fontName = fontInfo["name"] as? String,
@@ -99,8 +99,8 @@ open class ThemeLoader {
             let font = Font(name: fontName, size: CGFloat(fontSize)) {
             return font
         }
-        
-        throw ThemeLoaderError.missingContents(name)
+
+        throw ThemeReaderError.missingContents(name)
     }
 
     private func get(_ key : String, from dict : [String : Any]) throws -> String {
@@ -108,12 +108,12 @@ open class ThemeLoader {
             return value
         }
 
-        throw ThemeLoaderError.missingContents(key)
+        throw ThemeReaderError.missingContents(key)
     }
-    
+
 }
 
-public enum ThemeLoaderError : Error {
+public enum ThemeReaderError : Error {
     case missingContents(String)
     case invalidContents(String)
 }
