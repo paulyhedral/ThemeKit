@@ -1,0 +1,16 @@
+
+#include "../Submodules/xcconfigs/Base/Targets/Framework.xcconfig"
+#include "../Submodules/xcconfigs/Base/Configurations/Release.xcconfig"
+
+PRODUCT_NAME = ThemeKit
+PRODUCT_BUNDLE_IDENTIFIER = com.pilgrimagesoftware.lib.ThemeKit
+MODULE_NAME = ThemeKit
+IBSC_MODULE = ThemeKit
+PRODUCT_MODULE_NAME = ThemeKit
+EXECUTABLE_NAME = ThemeKit
+
+INFOPLIST_FILE = Sources/ThemeKit/Info.plist
+
+SWIFT_VERSION = 4.1
+
+LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/Frameworks @loader_path/../Frameworks
