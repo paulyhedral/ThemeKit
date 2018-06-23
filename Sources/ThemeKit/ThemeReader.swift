@@ -52,11 +52,11 @@ open class ThemeReader {
         guard let colors = try JSONSerialization.jsonObject(with: try loadWrapperContents(fw, named: "colors"), options: []) as? [String : String] else {
             throw ThemeReaderError.invalidContents("colors")
         }
-        let tintColor = try Color.from(hexValue: try get("tintColor", from: colors))
-        let alternateTintColor = try Color.from(hexValue: try get("alternateTintColor", from: colors))
-        let titleBarBackgroundColor = try Color.from(hexValue: try get("titleBarBackgroundColor", from: colors))
-        let titleBarColor = try Color.from(hexValue: try get("titleBarColor", from: colors))
-        let titleBarButtonColor = try Color.from(hexValue: try get("titleBarButtonColor", from: colors))
+        let tintColor = try UIColor.from(hexValue: try get("tintColor", from: colors))
+        let alternateTintColor = try UIColor.from(hexValue: try get("alternateTintColor", from: colors))
+        let titleBarBackgroundColor = try UIColor.from(hexValue: try get("titleBarBackgroundColor", from: colors))
+        let titleBarColor = try UIColor.from(hexValue: try get("titleBarColor", from: colors))
+        let titleBarButtonColor = try UIColor.from(hexValue: try get("titleBarButtonColor", from: colors))
 
         var theme = Theme(id: identifier, name: name)
         theme.defaultFont = defaultFont
