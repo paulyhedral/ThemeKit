@@ -7,10 +7,14 @@
 //
 
 import Foundation
+import SwiftyBeaver
 
+
+let log = SwiftyBeaver.self 
 
 public enum ThemeIdentifier : String {
     case dark = "dark"
     case light = "light"
     case custom = "custom"
 }
+
