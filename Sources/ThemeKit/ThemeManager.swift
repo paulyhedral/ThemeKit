@@ -6,7 +6,8 @@
 //  Copyright © 2018 Pilgrimage Software. All rights reserved.
 //
 
-import Foundation
+import UIKit
+import SwiftyBeaver
 
 
 public protocol ThemeManagerDelegate : class {
@@ -30,11 +31,11 @@ public class ThemeManager {
         self.defaultTheme = Theme(id: "default",
                                   name: "Default")
         //                                  iconImage: nil, backgroundImage: nil,
-        self.defaultTheme.defaultFont = Font.systemFont(ofSize: Font.systemFontSize)
-        self.defaultTheme.labelFont = Font.systemFont(ofSize: Font.labelFontSize)
-        self.defaultTheme.titleBarFont = Font.preferredFont(forTextStyle: .title1)
-        self.defaultTheme.buttonFont = Font.systemFont(ofSize: Font.buttonFontSize)
-        self.defaultTheme.titleFont = Font.preferredFont(forTextStyle: .title2)
+        self.defaultTheme.defaultFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
+        self.defaultTheme.labelFont = UIFont.systemFont(ofSize: UIFont.labelFontSize)
+        self.defaultTheme.titleBarFont = UIFont.preferredFont(forTextStyle: .title1)
+        self.defaultTheme.buttonFont = UIFont.systemFont(ofSize: UIFont.buttonFontSize)
+        self.defaultTheme.titleFont = UIFont.preferredFont(forTextStyle: .title2)
         self.defaultTheme.tintColor = .black
         self.defaultTheme.alternateTintColor = .white
         self.defaultTheme.titleBarColor = .orange
@@ -95,7 +96,7 @@ public class ThemeManager {
                     self.packagedThemes.append(theme)
                 }
                 catch {
-                        log.error("Error while trying to load packaged theme at URL '\(url)': \(error)")
+                    log.error("Error while trying to load packaged theme at URL '\(url)': \(error)")
                 }
             }
         }

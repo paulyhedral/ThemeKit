@@ -52,11 +52,11 @@ open class ThemeLoader {
         guard let colors = try JSONSerialization.jsonObject(with: try loadWrapperContents(fw, named: "colors"), options: []) as? [String : String] else {
             throw ThemeLoaderError.invalidContents("colors")
         }
-        let tintColor = try Color.from(hexValue: try get("tintColor", from: colors))
-        let alternateTintColor = try Color.from(hexValue: try get("alternateTintColor", from: colors))
-        let titleBarBackgroundColor = try Color.from(hexValue: try get("titleBarBackgroundColor", from: colors))
-        let titleBarColor = try Color.from(hexValue: try get("titleBarColor", from: colors))
-        let titleBarButtonColor = try Color.from(hexValue: try get("titleBarButtonColor", from: colors))
+        let tintColor = try UIColor.from(hexValue: try get("tintColor", from: colors))
+        let alternateTintColor = try UIColor.from(hexValue: try get("alternateTintColor", from: colors))
+        let titleBarBackgroundColor = try UIColor.from(hexValue: try get("titleBarBackgroundColor", from: colors))
+        let titleBarColor = try UIColor.from(hexValue: try get("titleBarColor", from: colors))
+        let titleBarButtonColor = try UIColor.from(hexValue: try get("titleBarButtonColor", from: colors))
         
         var theme = Theme(id: identifier, name: name)
         theme.defaultFont = defaultFont
@@ -92,11 +92,11 @@ open class ThemeLoader {
         throw ThemeLoaderError.missingContents(name)
     }
     
-    private func processFont(_ json : [String : Any], named name : String) throws -> Font {
+    private func processFont(_ json : [String : Any], named name : String) throws -> UIFont {
         if let fontInfo = json[name] as? [String : Any],
             let fontName = fontInfo["name"] as? String,
             let fontSize = fontInfo["size"] as? Float,
-            let font = Font(name: fontName, size: CGFloat(fontSize)) {
+            let font = UIFont(name: fontName, size: CGFloat(fontSize)) {
             return font
         }
         

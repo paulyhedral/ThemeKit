@@ -54,7 +54,7 @@ public class ThemeWriter {
         try self.fileWrapper.write(to: self.url, options: [ .atomic ], originalContentsURL: nil)
     }
     
-    private func buildFontInfo(_ font : Font) -> [String : Any] {
+    private func buildFontInfo(_ font : UIFont) -> [String : Any] {
         let fontInfo : [String : Any] = [
             "name": font.fontName,
             "size": Float(font.pointSize),

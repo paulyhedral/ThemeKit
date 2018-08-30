@@ -6,7 +6,7 @@
 //  Copyright © 2018 Pilgrimage Software. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 
 public struct Theme {
@@ -14,28 +14,26 @@ public struct Theme {
     public let name : String
 //    public var iconImage : Image?
 //    public var backgroundImage : Image?
-    public var defaultFont : Font
-    public var labelFont : Font
-    public var titleBarFont : Font
-    public var buttonFont : Font
-    public var titleFont : Font
-    public var tintColor : Color
-    public var alternateTintColor : Color
-    public var titleBarColor : Color
-    public var titleBarButtonColor : Color
-    public var titleBarBackgroundColor : Color
-    #if os(iOS)
+    public var defaultFont : UIFont
+    public var labelFont : UIFont
+    public var titleBarFont : UIFont
+    public var buttonFont : UIFont
+    public var titleFont : UIFont
+    public var tintColor : UIColor
+    public var alternateTintColor : UIColor
+    public var titleBarColor : UIColor
+    public var titleBarButtonColor : UIColor
+    public var titleBarBackgroundColor : UIColor
     public var barStyle : UIBarStyle = .black
-    #endif
 
     public init(id : String, name : String) {
         self.id = id
         self.name = name
-        self.defaultFont = Font.systemFont(ofSize: Font.systemFontSize)
-        self.labelFont = Font.systemFont(ofSize: Font.systemFontSize)
-        self.titleFont = Font.systemFont(ofSize: Font.systemFontSize)
-        self.titleBarFont = Font.systemFont(ofSize: Font.systemFontSize)
-        self.buttonFont = Font.systemFont(ofSize: Font.systemFontSize)
+        self.defaultFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
+        self.labelFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
+        self.titleFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
+        self.titleBarFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
+        self.buttonFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
         self.tintColor = .black
         self.alternateTintColor = .white
         self.titleBarColor = .blue
