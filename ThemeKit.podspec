@@ -20,4 +20,5 @@ Pod::Spec.new do |s|
 	s.source_files            = 'Sources/ThemeKit/**/*.{h,m,c,swift}'
 
 	s.dependency              'SwiftyBeaver'
+    s.dependency              'KBRoundedButton'
 end
