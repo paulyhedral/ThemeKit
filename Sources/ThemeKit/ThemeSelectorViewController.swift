@@ -12,12 +12,16 @@ import UIKit
 public class ThemeSelectorViewController : UIViewController {
 
     @IBOutlet var darkThemeTapGesture: UITapGestureRecognizer!
+    @IBOutlet weak var darkThemeSelectedImage : UIImageView!
     @IBOutlet var lightThemeTapGesture: UITapGestureRecognizer!
+    @IBOutlet weak var lightThemeSelectedImage : UIImageView!
     @IBOutlet var customThemeTapGesture: UITapGestureRecognizer!
+    @IBOutlet weak var customThemeSelectedImage : UIImageView!
 
     public override func viewDidLoad() {
         super.viewDidLoad()
 
+        updateSelection()
     }
 
     public override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -44,13 +48,43 @@ public class ThemeSelectorViewController : UIViewController {
         }
     }
 
-    @IBAction func darkThemeSelected(_ sender: UITapGestureRecognizer) {
+
+    // MARK: - UI callbacks
+
+    @IBAction func darkThemeSelected(_ sender : UITapGestureRecognizer) {
+        if let theme = ThemeManager.shared.theme(id: ThemeIdentifier.dark.rawValue) {
+            ThemeManager.shared.setDefault(theme: theme)
+        }
+
+        updateSelection()
     }
 
-    @IBAction func lightThemeSelected(_ sender: UITapGestureRecognizer) {
+    @IBAction func lightThemeSelected(_ sender : UITapGestureRecognizer) {
+        if let theme = ThemeManager.shared.theme(id: ThemeIdentifier.light.rawValue) {
+            ThemeManager.shared.setDefault(theme: theme)
+        }
+
+        updateSelection()
     }
 
-    @IBAction func customThemeSelected(_ sender: UITapGestureRecognizer) {
+    @IBAction func customThemeSelected(_ sender : UITapGestureRecognizer) {
+        if let theme = ThemeManager.shared.theme(id: ThemeIdentifier.custom.rawValue) {
+            ThemeManager.shared.setDefault(theme: theme)
+        }
+
+        updateSelection()
+    }
+
+
+    // MARK: - Private methods
+
+    private func updateSelection() {
+
+        let theme = ThemeManager.shared.currentTheme
+
+        darkThemeSelectedImage.isHidden = (theme.id != ThemeIdentifier.dark.rawValue)
+        lightThemeSelectedImage.isHidden = (theme.id != ThemeIdentifier.light.rawValue)
+        customThemeSelectedImage.isHidden = (theme.id != ThemeIdentifier.custom.rawValue)
     }
 
 }
