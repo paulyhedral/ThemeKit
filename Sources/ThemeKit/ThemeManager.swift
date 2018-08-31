@@ -52,6 +52,7 @@ public class ThemeManager {
     
     public func setDefault(theme : Theme) {
         self.defaultTheme = theme
+        self.currentTheme = theme 
     }
     
     public func theme(id : String) -> Theme? {
