@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
 	s.homepage                = 'https://pilgrimagesoftware.com'
 	s.license                 = { type: 'MIT', file: 'LICENSE' }
 	s.author                  = { 'Paul Schifferer' => 'paul@schifferers.net' }
-	s.social_media_url        = 'https://twitter.com/paulyhedral'
+	s.social_media_url        = 'https://wanderingmonster.org'
 
 	s.source                  = { git: 'https://github.com/paulyhedral/ThemeKit.git',
 								  tag: s.version.to_s, submodules: true }
