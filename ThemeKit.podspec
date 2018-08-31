@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
 	s.author                  = { 'Paul Schifferer' => 'paul@schifferers.net' }
 	s.social_media_url        = 'https://twitter.com/paulyhedral'
 
-	s.source                  = { git: 'ssh://git@github.com/paulyhedral/ThemeKit.git',
+	s.source                  = { git: 'https://github.com/paulyhedral/ThemeKit.git',
 								  tag: s.version.to_s, submodules: true }
 	s.frameworks              = 'Foundation'
 	s.ios.frameworks          = 'UIKit'
