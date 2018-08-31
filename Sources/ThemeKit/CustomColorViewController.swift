@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import KBRoundedButton
+//import KBRoundedButton
 
 
 public class CustomColorViewController : UIViewController {
@@ -15,9 +15,9 @@ public class CustomColorViewController : UIViewController {
     public var color : UIColor = .black
 
     @IBOutlet weak var colorLabel: UILabel!
-    @IBOutlet weak var currentColor: KBRoundedButton!
+//    @IBOutlet weak var currentColor: KBRoundedButton!
     @IBOutlet var currentColorGesture: UITapGestureRecognizer!
-    
+
     public override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -30,9 +30,9 @@ public class CustomColorViewController : UIViewController {
 
         self.colorLabel.text = label
 
-        self.currentColor.backgroundColor = color 
+//        self.currentColor.backgroundColor = color
     }
-    
+
 
     /*
     // MARK: - Navigation

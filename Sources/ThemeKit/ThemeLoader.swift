@@ -6,7 +6,7 @@
 //  Copyright © 2018 Pilgrimage Software. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 
 open class ThemeLoader {
@@ -14,6 +14,8 @@ open class ThemeLoader {
     var baseURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     
     open func load(url : URL) throws -> Theme {
+        log.info("Loading theme from URL: \(url.absoluteString).")
+
         let fw = try FileWrapper(url: url, options: [ .immediate, .withoutMapping ])
         
         guard let meta = try JSONSerialization.jsonObject(with: try loadWrapperContents(fw, named: "meta"), options: []) as? [String : String] else {
@@ -22,7 +24,6 @@ open class ThemeLoader {
         let identifier = try get("id", from: meta)
         let name = try get("name", from: meta)
         
-        #if os(iOS)
         let barStyle : UIBarStyle
         guard let ui = try JSONSerialization.jsonObject(with: try loadWrapperContents(fw, named: "ui"), options: []) as? [String : Any] else {
             throw ThemeLoaderError.invalidContents("ui")
@@ -30,16 +31,14 @@ open class ThemeLoader {
         if let s = ui["barStyle"] as? String,
             let i = Int(s),
             let b = UIBarStyle(rawValue: i) {
+            log.debug("b=\(b)")
             barStyle = b
         }
         else {
+            log.debug("Setting bar style to .black")
             barStyle = .black
         }
-        #endif
 
-        //        let iconImage : Image? = nil // TODO: icon image
-        //        let backgroundImage : Image? = nil // TODO: background image
-        
         guard let fonts = try JSONSerialization.jsonObject(with: try loadWrapperContents(fw, named: "fonts"), options: []) as? [String : Any] else {
             throw ThemeLoaderError.invalidContents("fonts")
         }
@@ -57,7 +56,8 @@ open class ThemeLoader {
         let titleBarBackgroundColor = try UIColor.from(hexValue: try get("titleBarBackgroundColor", from: colors))
         let titleBarColor = try UIColor.from(hexValue: try get("titleBarColor", from: colors))
         let titleBarButtonColor = try UIColor.from(hexValue: try get("titleBarButtonColor", from: colors))
-        
+
+        log.debug("Creating theme object.")
         var theme = Theme(id: identifier, name: name)
         theme.defaultFont = defaultFont
         theme.labelFont = labelFont
@@ -69,23 +69,22 @@ open class ThemeLoader {
         theme.titleBarColor = titleBarColor
         theme.titleBarButtonColor = titleBarButtonColor
         theme.titleBarBackgroundColor = titleBarBackgroundColor
-        #if os(iOS)
         theme.barStyle = barStyle
-        #endif
-        
+
         return theme
     }
     
     open func load(id : String) throws -> Theme {
+        log.info("Loading theme using identifier '\(id)'.")
         let url = baseURL.appendingPathComponent("\(id).theme")
         return try self.load(url: url)
     }
     
     private func loadWrapperContents(_ wrapper : FileWrapper, named name : String) throws -> Data {
+        log.debug("\(#function): wrapper=\(wrapper), name=\(name)")
         if let wrappers = wrapper.fileWrappers,
             let w = wrappers["\(name).json"],
-            let d = w.regularFileContents /*,
-         let s = String(data: d, encoding: .utf8) */ {
+            let d = w.regularFileContents {
             return d
         }
         
@@ -93,6 +92,7 @@ open class ThemeLoader {
     }
     
     private func processFont(_ json : [String : Any], named name : String) throws -> UIFont {
+        log.debug("\(#function): json=\(json), name=\(name)")
         if let fontInfo = json[name] as? [String : Any],
             let fontName = fontInfo["name"] as? String,
             let fontSize = fontInfo["size"] as? Float,
@@ -104,6 +104,7 @@ open class ThemeLoader {
     }
 
     private func get(_ key : String, from dict : [String : Any]) throws -> String {
+        log.debug("\(#function): key=\(key), dict=\(dict)")
         if let value = dict[key] as? String {
             return value
         }

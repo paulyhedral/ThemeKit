@@ -6,7 +6,7 @@
 //  Copyright © 2018 Pilgrimage Software. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 
 public class ThemeWriter {
@@ -20,19 +20,20 @@ public class ThemeWriter {
     }
     
     public func write(theme : Theme) throws {
+        log.debug("\(#function): theme=\(theme)")
+
         let meta : [String : String] = [
             "id": theme.id,
             "name": theme.name,
         ]
         self.fileWrapper.addRegularFile(withContents: try jsonToData(meta), preferredFilename: "meta.json")
 
-        #if os(iOS)
         let ui : [String : String] = [
             "barStyle": "\(theme.barStyle)",
         ]
+        log.debug("Adding ui.json file to wrapper.")
         self.fileWrapper.addRegularFile(withContents: try jsonToData(ui), preferredFilename: "ui.json")
-        #endif
-        
+
         let fonts : [String : Any] = [
             "defaultFont": buildFontInfo(theme.defaultFont),
             "labelFont": buildFontInfo(theme.labelFont),
@@ -40,6 +41,7 @@ public class ThemeWriter {
             "buttonFont": buildFontInfo(theme.buttonFont),
             "titleFont": buildFontInfo(theme.titleFont),
         ]
+        log.debug("Adding fonts.json file to wrapper.")
         self.fileWrapper.addRegularFile(withContents: try jsonToData(fonts), preferredFilename: "fonts.json")
 
         let colors : [String : String] = [
@@ -49,8 +51,10 @@ public class ThemeWriter {
             "titleBarColor": theme.titleBarColor.hexString,
             "titleBarButtonColor": theme.titleBarButtonColor.hexString,
         ]
+        log.debug("Adding colors.json file to wrapper.")
         self.fileWrapper.addRegularFile(withContents: try jsonToData(colors), preferredFilename: "colors.json")
-        
+
+        log.info("Writing file wrapper to URL \(self.url)...")
         try self.fileWrapper.write(to: self.url, options: [ .atomic ], originalContentsURL: nil)
     }
     

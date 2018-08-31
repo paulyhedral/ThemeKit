@@ -12,8 +12,8 @@ import UIKit
 public struct Theme {
     public let id : String 
     public let name : String
-//    public var iconImage : Image?
-//    public var backgroundImage : Image?
+    //    public var iconImage : Image?
+    //    public var backgroundImage : Image?
     public var defaultFont : UIFont
     public var labelFont : UIFont
     public var titleBarFont : UIFont
@@ -53,8 +53,8 @@ extension Theme : Equatable, Hashable {
         
         v ^= id.hashValue
         v ^= name.hashValue
-//        v ^= iconImage?.hashValue ?? 0
-//        v ^= backgroundImage?.hashValue ?? 0
+        //        v ^= iconImage?.hashValue ?? 0
+        //        v ^= backgroundImage?.hashValue ?? 0
         v ^= defaultFont.hashValue
         v ^= labelFont.hashValue
         v ^= titleBarFont.hashValue
@@ -68,6 +68,18 @@ extension Theme : Equatable, Hashable {
 
         return v
     }
+}
+
+
+extension Theme : CustomStringConvertible {
+
+    public var description: String {
+        return "Theme { id=\(id); name=\(name); defaultFont=\(defaultFont); labelFont=\(labelFont); " +
+        "titleBarFont=\(titleBarFont); buttonFont=\(buttonFont); titleFont=\(titleFont); " +
+        "tintColor=\(tintColor); alternateTintColor=\(alternateTintColor); titleBarColor=\(titleBarColor); " +
+        "titleBarButtonColor=\(titleBarButtonColor); titleBarBackgroundColor\(titleBarBackgroundColor) }"
+    }
+
 }
 
 
