@@ -19,7 +19,6 @@ public class ThemeColorsDisplayViewController: UIViewController {
     }
     
 
-
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -30,23 +29,23 @@ public class ThemeColorsDisplayViewController: UIViewController {
             let vc = segue.destination as? CustomColorViewController {
             switch segueId {
             case "EmbedThemeTitleBarBackgroundColor":
-                vc.label = NSLocalizedString("xyz", comment: "")
+                vc.label = NSLocalizedString("color.titlebarbackground.label", tableName: "ThemeKit", bundle: Bundle(for: ThemeColorsDisplayViewController.self), comment: "")
                 vc.color = theme.titleBarBackgroundColor
 
             case "EmbedThemeTintColor":
-                vc.label = NSLocalizedString("xyz", comment: "")
+                vc.label = NSLocalizedString("color.tint.label", tableName: "ThemeKit", bundle: Bundle(for: ThemeColorsDisplayViewController.self), comment: "")
                 vc.color = theme.tintColor
 
             case "EmbedThemeTitleColor":
-                vc.label = NSLocalizedString("xyz", comment: "")
+                vc.label = NSLocalizedString("color.title.label", tableName: "ThemeKit", bundle: Bundle(for: ThemeColorsDisplayViewController.self), comment: "")
                 vc.color = theme.titleBarButtonColor
 
             case "EmbedThemeAltTintColor":
-                vc.label = NSLocalizedString("xyz", comment: "")
+                vc.label = NSLocalizedString("color.alternatetint.label", tableName: "ThemeKit", bundle: Bundle(for: ThemeColorsDisplayViewController.self), comment: "")
                 vc.color = theme.alternateTintColor
 
             case "EmbedThemeTitleBarColor":
-                vc.label = NSLocalizedString("xyz", comment: "")
+                vc.label = NSLocalizedString("color.titlebar.label", tableName: "ThemeKit", bundle: Bundle(for: ThemeColorsDisplayViewController.self), comment: "")
                 vc.color = theme.titleBarColor
 
             default: break
