@@ -69,3 +69,22 @@ extension Theme : Equatable, Hashable {
         return v
     }
 }
+
+
+extension Theme {
+
+    public mutating func copy(from theme : Theme) {
+        self.alternateTintColor = theme.alternateTintColor
+        self.barStyle = theme.barStyle
+        self.buttonFont = theme.buttonFont
+        self.defaultFont = theme.defaultFont
+        self.labelFont = theme.labelFont
+        self.tintColor = theme.tintColor
+        self.titleBarBackgroundColor = theme.titleBarBackgroundColor
+        self.titleBarButtonColor = theme.titleBarButtonColor
+        self.titleBarColor = theme.titleBarColor
+        self.titleBarFont = theme.titleBarFont
+        self.titleFont = theme.titleFont
+    }
+
+}
