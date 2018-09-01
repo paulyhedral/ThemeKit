@@ -19,3 +19,10 @@ public enum ThemeIdentifier : String {
     case `default` = "default"
 }
 
+public enum ThemeComponent {
+    case tintColor
+    case alternateTintColor
+    case titleBarColor
+    case titleBarButtonColor
+    case titleBarBackgroundColor
+}

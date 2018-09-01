@@ -1,22 +1,30 @@
 //
 //  CustomColorViewController.swift
-//  PilgrimageKit-iOS
+//  ThemeKit
 //
 //  Created by Paul Schifferer on 8/28/18.
 //
 
 import UIKit
-//import KBRoundedButton
 
+
+public protocol CustomColorHandler : class {
+
+    func colorTouched(for component : ThemeComponent, in viewController : CustomColorViewController)
+
+}
 
 public class CustomColorViewController : UIViewController {
 
+    public var component : ThemeComponent = .tintColor
     public var label : String = "WTF"
     public var color : UIColor = .black
 
+    public weak var handler : CustomColorHandler?
+
     @IBOutlet weak var colorLabel: UILabel!
-//    @IBOutlet weak var currentColor: KBRoundedButton!
-    @IBOutlet var currentColorGesture: UITapGestureRecognizer!
+    @IBOutlet weak var currentColor: UIButton!
+//    @IBOutlet var currentColorGesture: UITapGestureRecognizer!
 
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,12 +33,18 @@ public class CustomColorViewController : UIViewController {
         updateControls()
     }
 
+    public override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        self.currentColor.layer.cornerRadius = self.currentColor.bounds.width / 2.0
+    }
+
 
     private func updateControls() {
 
         self.colorLabel.text = label
 
-//        self.currentColor.backgroundColor = color
+        self.currentColor.backgroundColor = color
     }
 
 
@@ -43,5 +57,12 @@ public class CustomColorViewController : UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+
+
+    // MARK: - UI callbacks
+
+    @IBAction func currentColorTouched(_ sender: UIButton) {
+        self.handler?.colorTouched(for: component, in: self)
+    }
 
 }
