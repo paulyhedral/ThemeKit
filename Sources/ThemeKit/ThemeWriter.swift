@@ -14,9 +14,9 @@ public class ThemeWriter {
     private let url : URL
     private let fileWrapper : FileWrapper
     
-    public init(url : URL) throws {
+    public init(url : URL) {
         self.url = url
-        self.fileWrapper = try FileWrapper(url: url, options: [])
+        self.fileWrapper = FileWrapper(directoryWithFileWrappers: [:])
     }
     
     public func write(theme : Theme) throws {
