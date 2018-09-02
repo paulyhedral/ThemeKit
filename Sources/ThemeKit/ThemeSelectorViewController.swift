@@ -53,7 +53,7 @@ public class ThemeSelectorViewController : UIViewController {
 
     @IBAction func darkThemeSelected(_ sender : UITapGestureRecognizer) {
         if let theme = ThemeManager.shared.theme(id: ThemeIdentifier.dark.rawValue) {
-            ThemeManager.shared.setDefault(theme: theme)
+            ThemeManager.shared.currentTheme = theme
         }
 
         updateSelection()
@@ -61,7 +61,7 @@ public class ThemeSelectorViewController : UIViewController {
 
     @IBAction func lightThemeSelected(_ sender : UITapGestureRecognizer) {
         if let theme = ThemeManager.shared.theme(id: ThemeIdentifier.light.rawValue) {
-            ThemeManager.shared.setDefault(theme: theme)
+            ThemeManager.shared.currentTheme = theme
         }
 
         updateSelection()
@@ -69,7 +69,7 @@ public class ThemeSelectorViewController : UIViewController {
 
     @IBAction func customThemeSelected(_ sender : UITapGestureRecognizer) {
         if let theme = ThemeManager.shared.theme(id: ThemeIdentifier.custom.rawValue) {
-            ThemeManager.shared.setDefault(theme: theme)
+            ThemeManager.shared.currentTheme = theme
         }
 
         updateSelection()
