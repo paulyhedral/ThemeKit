@@ -45,11 +45,11 @@ public class ThemeWriter {
         self.fileWrapper.addRegularFile(withContents: try jsonToData(fonts), preferredFilename: "fonts.json")
 
         let colors : [String : String] = [
-            "tintColor": theme.tintColor.hexString,
-            "alternateTintColor": theme.alternateTintColor.hexString,
-            "titleBarBackgroundColor": theme.titleBarBackgroundColor.hexString,
-            "titleBarColor": theme.titleBarColor.hexString,
-            "titleBarButtonColor": theme.titleBarButtonColor.hexString,
+            "tintColor": theme.tintColor.hexString(),
+            "alternateTintColor": theme.alternateTintColor.hexString(),
+            "titleBarBackgroundColor": theme.titleBarBackgroundColor.hexString(),
+            "titleBarColor": theme.titleBarColor.hexString(),
+            "titleBarButtonColor": theme.titleBarButtonColor.hexString(),
         ]
         log.debug("Adding colors.json file to wrapper.")
         self.fileWrapper.addRegularFile(withContents: try jsonToData(colors), preferredFilename: "colors.json")
