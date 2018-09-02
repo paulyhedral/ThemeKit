@@ -104,6 +104,17 @@ extension UIColor {
         log.debug("v=\(v)")
         return CGFloat(v) / 255.0
     }
+
+    public func isDark() -> Bool {
+        if let components = self.cgColor.components,
+            components.count >= 3 {
+            let brightness = ((components[0] * 299) + (components[1] * 587) + (components[2] * 114)) / 1000
+
+            return brightness < 0.5
+        }
+
+        return false
+    }
     
 }
 
