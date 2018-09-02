@@ -44,6 +44,8 @@ public class ThemeManager {
 
         for theme in (packagedThemes + userThemes) {
             log.debug("theme=\(theme)")
+            guard (self.delegate?.isThemeAvailable(theme, in: self) ?? true) else { continue }
+
             if theme.id == id {
                 log.debug("Returning theme: \(theme)")
                 return theme
