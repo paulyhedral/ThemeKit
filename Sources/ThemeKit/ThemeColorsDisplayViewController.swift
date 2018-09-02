@@ -16,22 +16,54 @@ public protocol ThemeColorSelectionDelegate : class {
 
 public class ThemeColorsDisplayViewController : UIViewController, CustomColorHandler {
 
-    public var theme : Theme = Theme(id: "none", name: "None")
+    @IBOutlet weak var tintColorContainer : UIView!
+    @IBOutlet weak var alternateTintColorContainer : UIView!
+    @IBOutlet weak var titleBarColorContainer : UIView!
+    @IBOutlet weak var titleBarButtonColorContainer : UIView!
+    @IBOutlet weak var titleBarBackgroundColorContainer : UIView!
+
+    public var theme : Theme = Theme(id: "none", name: "None") {
+        didSet {
+            componentControllers[.tintColor]?.color = theme.tintColor
+            componentControllers[.alternateTintColor]?.color = theme.alternateTintColor
+            componentControllers[.titleBarColor]?.color = theme.titleBarColor
+            componentControllers[.titleBarButtonColor]?.color = theme.titleBarButtonColor
+            componentControllers[.titleBarBackgroundColor]?.color = theme.titleBarBackgroundColor
+        }
+    }
     public weak var selectionDelegate : ThemeColorSelectionDelegate?
 
-    private var tintColorButton : UIButton?
-    private var alternateTintColorButton : UIButton?
-    private var titleBarColorButton : UIButton?
-    private var titleBarButtonColorButton : UIButton?
-    private var titleBarBackgroundColorButton : UIButton?
     private var componentControllers : [ThemeComponent : CustomColorViewController] = [:]
 
     public override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        //        select(component: .tintColor)
+        //        self.selectionDelegate?.didSelect(component: .tintColor, in: self)
     }
-    
+
+
+    // MARK: - API
+
+    public func select(component : ThemeComponent) {
+
+        doComponentSelection(tintColorContainer, selected: (component == .tintColor))
+        doComponentSelection(alternateTintColorContainer, selected: (component == .alternateTintColor))
+        doComponentSelection(titleBarColorContainer, selected: (component == .titleBarColor))
+        doComponentSelection(titleBarButtonColorContainer, selected: (component == .titleBarButtonColor))
+        doComponentSelection(titleBarBackgroundColorContainer, selected: (component == .titleBarBackgroundColor))
+    }
+
+
+    // MARK: - Private methods
+
+    private func doComponentSelection(_ button : UIView, selected : Bool) {
+        button.layer.cornerRadius = 5
+        button.layer.borderWidth = (selected ? 1 : 0)
+        button.layer.borderColor = (selected ? UIColor.lightGray.cgColor : UIColor.clear.cgColor)
+    }
+
 
     // MARK: - Navigation
 
@@ -56,9 +88,9 @@ public class ThemeColorsDisplayViewController : UIViewController, CustomColorHan
                 vc.handler = self
                 self.componentControllers[.tintColor] = vc
 
-            case "EmbedThemeTitleColor":
+            case "EmbedThemeTitleBarButtonColor":
                 vc.component = ThemeComponent.titleBarButtonColor
-                vc.label = NSLocalizedString("color.title.label", tableName: "ThemeKit", bundle: Bundle(for: ThemeColorsDisplayViewController.self), comment: "")
+                vc.label = NSLocalizedString("color.titlebarbutton.label", tableName: "ThemeKit", bundle: Bundle(for: ThemeColorsDisplayViewController.self), comment: "")
                 vc.color = theme.titleBarButtonColor
                 vc.handler = self
                 self.componentControllers[.titleBarButtonColor] = vc
@@ -87,6 +119,7 @@ public class ThemeColorsDisplayViewController : UIViewController, CustomColorHan
 
     public func colorTouched(for component : ThemeComponent, in viewController : CustomColorViewController) {
         self.selectionDelegate?.didSelect(component: component, in: self)
+        select(component: component)
     }
 
 }

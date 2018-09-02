@@ -12,13 +12,13 @@ import SwiftyBeaver
 
 public protocol ThemeManagerDelegate : class {
     func process(theme : Theme, in themeManager : ThemeManager) -> Theme
-    
+
     func isThemeAvailable(_ theme : Theme, in themeManager : ThemeManager) -> Bool
 }
 
 public class ThemeManager {
     public static let shared = ThemeManager()
-    
+
     public weak var delegate : ThemeManagerDelegate?
 
     public var currentTheme : Theme {
@@ -29,16 +29,16 @@ public class ThemeManager {
 
     private var packagedThemes : [Theme] = []
     private var userThemes : [Theme] = []
-    
+
     public init() {
         self.currentTheme = Theme(id: ThemeIdentifier.default.rawValue,
                                   name: "Default")
     }
-    
+
     public func allThemes() -> [Theme] {
         return (packagedThemes + userThemes).filter { self.delegate?.isThemeAvailable($0, in: self) ?? true }
     }
-    
+
     public func theme(id : String) -> Theme? {
         log.debug("\(#function): id=\(id)")
 
@@ -51,7 +51,7 @@ public class ThemeManager {
                 return theme
             }
         }
-        
+
         return nil
     }
 
@@ -73,7 +73,7 @@ public class ThemeManager {
                                                 ])
         }
     }
-    
+
     public func loadPackagedThemes(from bundle : Bundle, resetting : Bool = false) {
         log.info("Loading packaged themes from bundle: \(bundle)...")
 
@@ -81,7 +81,7 @@ public class ThemeManager {
             log.debug("Resetting packaged theme list.")
             self.packagedThemes.removeAll()
         }
-        
+
         let loader = PackagedThemeLoader(bundle: bundle)
         if let urls = bundle.urls(forResourcesWithExtension: "theme", subdirectory: nil) {
             log.debug("urls=\(urls)")
@@ -98,22 +98,22 @@ public class ThemeManager {
             }
         }
     }
-    
+
     public func loadUserThemes() {
         log.info("Loading user themes...")
-        
+
         let fm = FileManager.default
-        
+
         if let docsUrl = fm.urls(for: .documentDirectory, in: .userDomainMask).first {
             let loader = UserDefinedThemeLoader()
-            
+
             do {
                 let urls = try fm.contentsOfDirectory(at: docsUrl, includingPropertiesForKeys: nil, options: [ .skipsHiddenFiles, .skipsPackageDescendants, .skipsSubdirectoryDescendants ])
                 log.debug("urls=\(urls)")
                 for url in urls {
                     log.debug("url=\(url)")
                     guard url.pathExtension == "theme" else { continue }
-                    
+
                     let theme = try loader.load(url: url)
                     log.debug("theme=\(theme)")
                     self.userThemes.append(theme)
@@ -134,14 +134,14 @@ public class ThemeManager {
                                         object: self,
                                         userInfo: [
                                             ThemeManager.Notification.Keys.themeIdentifier : id,
-            ])
+                                            ])
 
     }
-    
+
 }
 
 extension ThemeManager {
-    
+
     public enum Notification {
         // sent when the current theme changes in the manager
         public static var ThemeChanged = NSNotification.Name("ThemeChanged")
@@ -152,5 +152,5 @@ extension ThemeManager {
             case themeIdentifier = "id"
         }
     }
-    
+
 }
