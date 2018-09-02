@@ -37,6 +37,8 @@ public class CustomColorViewController : UIViewController {
         super.viewDidLayoutSubviews()
 
         self.currentColor.layer.cornerRadius = self.currentColor.bounds.width / 2.0
+        self.currentColor.layer.borderColor = UIColor.lightGray.cgColor
+        self.currentColor.layer.borderWidth = 1
     }
 
 
