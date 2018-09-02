@@ -143,7 +143,10 @@ public class ThemeManager {
 extension ThemeManager {
     
     public enum Notification {
+        // sent when the current theme changes in the manager
         public static var ThemeChanged = NSNotification.Name("ThemeChanged")
+        // sent when a theme's components change value
+        public static var ThemeUpdated = NSNotification.Name("ThemeUpdated")
 
         public enum Keys : String {
             case themeIdentifier = "id"
