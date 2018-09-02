@@ -8,6 +8,6 @@
 
 "color.tint.label" = "Tint";
 "color.alternatetint.label" = "Alternate Tint";
-"color.title.label" = "Title";
 "color.titlebar.label" = "Title Bar";
+"color.titlebarbutton.label" = "Title Bar Button";
 "color.titlebarbackground.label" = "Title Bar Background";
