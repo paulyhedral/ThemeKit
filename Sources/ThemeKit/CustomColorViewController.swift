@@ -24,7 +24,6 @@ public class CustomColorViewController : UIViewController {
 
     @IBOutlet weak var colorLabel: UILabel!
     @IBOutlet weak var currentColor: UIButton!
-//    @IBOutlet var currentColorGesture: UITapGestureRecognizer!
 
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,18 +46,9 @@ public class CustomColorViewController : UIViewController {
         self.colorLabel.text = label
 
         self.currentColor.backgroundColor = color
+
+        self.colorLabel.textColor = color.isDark() ? .lightGray : .black
     }
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 
     // MARK: - UI callbacks
