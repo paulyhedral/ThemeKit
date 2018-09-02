@@ -27,43 +27,22 @@ public class ThemeManager {
         }
     }
 
-    private var defaultTheme : Theme
     private var packagedThemes : [Theme] = []
     private var userThemes : [Theme] = []
     
     public init() {
-        self.defaultTheme = Theme(id: ThemeIdentifier.default.rawValue,
+        self.currentTheme = Theme(id: ThemeIdentifier.default.rawValue,
                                   name: "Default")
-        //                                  iconImage: nil, backgroundImage: nil,
-        self.defaultTheme.defaultFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
-        self.defaultTheme.labelFont = UIFont.systemFont(ofSize: UIFont.labelFontSize)
-        self.defaultTheme.titleBarFont = UIFont.preferredFont(forTextStyle: .title1)
-        self.defaultTheme.buttonFont = UIFont.systemFont(ofSize: UIFont.buttonFontSize)
-        self.defaultTheme.titleFont = UIFont.preferredFont(forTextStyle: .title2)
-        self.defaultTheme.tintColor = .black
-        self.defaultTheme.alternateTintColor = .white
-        self.defaultTheme.titleBarColor = .orange
-        self.defaultTheme.titleBarButtonColor = .green
-        self.defaultTheme.titleBarBackgroundColor = .purple
-        self.defaultTheme.barStyle = .black
-
-        self.currentTheme = self.defaultTheme
     }
     
     public func allThemes() -> [Theme] {
-        return ([defaultTheme] + packagedThemes + userThemes).filter { self.delegate?.isThemeAvailable($0, in: self) ?? true }
-    }
-    
-    public func setDefault(theme : Theme) {
-        log.info("Setting default theme: \(theme).")
-        self.defaultTheme = theme
-        self.currentTheme = theme 
+        return (packagedThemes + userThemes).filter { self.delegate?.isThemeAvailable($0, in: self) ?? true }
     }
     
     public func theme(id : String) -> Theme? {
         log.debug("\(#function): id=\(id)")
 
-        for theme in ([defaultTheme] + packagedThemes + userThemes) {
+        for theme in (packagedThemes + userThemes) {
             log.debug("theme=\(theme)")
             if theme.id == id {
                 log.debug("Returning theme: \(theme)")
