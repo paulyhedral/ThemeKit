@@ -65,6 +65,12 @@ public class ThemeManager {
             log.debug("themeUrl=\(themeUrl)")
             let writer = try ThemeWriter(url: themeUrl)
             try writer.write(theme: theme)
+
+            NotificationCenter.default.post(name: ThemeManager.Notification.ThemeUpdated,
+                                            object: self,
+                                            userInfo:  [
+                                                ThemeManager.Notification.Keys.themeIdentifier : theme.id,
+                                                ])
         }
     }
     
