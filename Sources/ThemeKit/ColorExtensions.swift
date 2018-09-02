@@ -13,14 +13,30 @@ import UIKit
 
 extension UIColor {
     
-    public var hexString : String {
+    public func hexString(componentSize : Int = 2, withAlpha : Bool = true) -> String {
         var r : CGFloat = 0
         var g : CGFloat = 0
         var b : CGFloat = 0
         var a : CGFloat = 0
+
         if self.getRed(&r, green: &g, blue: &b, alpha: &a) {
-            return String(format: "%02x%02x%02x%02x", Int(r * 255.0), Int(g * 255.0), Int(b * 255.0), Int(a * 255.0))
+            switch (componentSize, withAlpha) {
+            case (1, true):
+                return String(format: "%1x%1x%1x%1x", Int(r * 15.0), Int(g * 15.0), Int(b * 15.0), Int(a * 15.0))
+
+            case (2, true):
+                return String(format: "%02x%02x%02x%02x", Int(r * 255.0), Int(g * 255.0), Int(b * 255.0), Int(a * 255.0))
+
+            case (1, false):
+                return String(format: "%1x%1x%1x", Int(r * 15.0), Int(g * 15.0), Int(b * 15.0))
+
+            case (2, false):
+                return String(format: "%02x%02x%02x", Int(r * 255.0), Int(g * 255.0), Int(b * 255.0))
+
+            default: break
+            }
         }
+
         return ""
     }
     
