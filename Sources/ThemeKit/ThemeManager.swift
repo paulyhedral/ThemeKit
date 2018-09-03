@@ -62,6 +62,8 @@ public class ThemeManager {
     public func save(theme : Theme) throws {
         log.debug("Saving theme: \(theme).")
 
+        userThemes[theme.id] = theme
+
         let fm = FileManager.default
 
         if let docsUrl = fm.urls(for: .documentDirectory, in: .userDomainMask).first {
