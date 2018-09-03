@@ -6,8 +6,26 @@ class ColorExtensionTests : XCTestCase {
 
     func testHexString() {
         let color = UIColor.white
-        let s = color.hexString
+        let s = color.hexString()
         XCTAssertTrue(s == "ffffffff", "Expected 'ffffffff', got '\(s)'")
+    }
+
+    func testHexStringWithSizeAndAlpha() {
+        let color = UIColor.white
+        let s = color.hexString(componentSize: 1, withAlpha: false)
+        XCTAssertTrue(s == "fff", "Expected 'fff', got '\(s)'")
+    }
+
+    func testHexStringWithSize() {
+        let color = UIColor.white
+        let s = color.hexString(componentSize : 1)
+        XCTAssertTrue(s == "ffff", "Expected 'ffff', got '\(s)'")
+    }
+
+    func testHexStringWithAlpha() {
+        let color = UIColor.white
+        let s = color.hexString(withAlpha: false)
+        XCTAssertTrue(s == "ffffff", "Expected 'ffffff', got '\(s)'")
     }
 
     func testFromHashedHexValueWithoutAlpha() throws {
