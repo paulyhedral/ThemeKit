@@ -67,7 +67,7 @@ public class ThemeManager {
         if let docsUrl = fm.urls(for: .documentDirectory, in: .userDomainMask).first {
             let themeUrl = docsUrl.appendingPathComponent("custom-\(theme.id).theme")
             log.debug("themeUrl=\(themeUrl)")
-            let writer = try ThemeWriter(url: themeUrl)
+            let writer = ThemeWriter(url: themeUrl)
             try writer.write(theme: theme)
 
             send(notification: ThemeManager.Notification.ThemeUpdated, for: theme.id)
