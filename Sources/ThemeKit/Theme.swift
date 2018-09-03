@@ -10,10 +10,8 @@ import UIKit
 
 
 public struct Theme {
-    public let id : String 
+    public let id : String
     public let name : String
-    //    public var iconImage : Image?
-    //    public var backgroundImage : Image?
     public var defaultFont : UIFont
     public var labelFont : UIFont
     public var titleBarFont : UIFont
@@ -21,8 +19,8 @@ public struct Theme {
     public var titleFont : UIFont
     public var tintColor : UIColor
     public var alternateTintColor : UIColor
-    public var titleBarColor : UIColor
-    public var titleBarButtonColor : UIColor
+    public var titleBarTextColor : UIColor
+    public var titleBarButtonLabelColor : UIColor
     public var titleBarBackgroundColor : UIColor
     public var barStyle : UIBarStyle = .black
 
@@ -36,8 +34,8 @@ public struct Theme {
         self.buttonFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
         self.tintColor = .black
         self.alternateTintColor = .white
-        self.titleBarColor = .blue
-        self.titleBarButtonColor = .orange
+        self.titleBarTextColor = .blue
+        self.titleBarButtonLabelColor = .orange
         self.titleBarBackgroundColor = .green 
     }
 }
@@ -53,8 +51,6 @@ extension Theme : Equatable, Hashable {
         
         v ^= id.hashValue
         v ^= name.hashValue
-        //        v ^= iconImage?.hashValue ?? 0
-        //        v ^= backgroundImage?.hashValue ?? 0
         v ^= defaultFont.hashValue
         v ^= labelFont.hashValue
         v ^= titleBarFont.hashValue
@@ -62,8 +58,8 @@ extension Theme : Equatable, Hashable {
         v ^= titleFont.hashValue
         v ^= tintColor.hashValue
         v ^= alternateTintColor.hashValue
-        v ^= titleBarColor.hashValue
-        v ^= titleBarButtonColor.hashValue
+        v ^= titleBarTextColor.hashValue
+        v ^= titleBarButtonLabelColor.hashValue
         v ^= titleBarBackgroundColor.hashValue
 
         return v
@@ -76,8 +72,8 @@ extension Theme : CustomStringConvertible {
     public var description: String {
         return "Theme { id=\(id); name=\(name); defaultFont=\(defaultFont); labelFont=\(labelFont); " +
         "titleBarFont=\(titleBarFont); buttonFont=\(buttonFont); titleFont=\(titleFont); " +
-        "tintColor=\(tintColor); alternateTintColor=\(alternateTintColor); titleBarColor=\(titleBarColor); " +
-        "titleBarButtonColor=\(titleBarButtonColor); titleBarBackgroundColor\(titleBarBackgroundColor) }"
+        "tintColor=\(tintColor); alternateTintColor=\(alternateTintColor); titleBarTextColor=\(titleBarTextColor); " +
+        "titleBarButtonLabelColor=\(titleBarButtonLabelColor); titleBarBackgroundColor\(titleBarBackgroundColor) }"
     }
 
 }
@@ -93,8 +89,8 @@ extension Theme {
         self.labelFont = theme.labelFont
         self.tintColor = theme.tintColor
         self.titleBarBackgroundColor = theme.titleBarBackgroundColor
-        self.titleBarButtonColor = theme.titleBarButtonColor
-        self.titleBarColor = theme.titleBarColor
+        self.titleBarButtonLabelColor = theme.titleBarButtonLabelColor
+        self.titleBarTextColor = theme.titleBarTextColor
         self.titleBarFont = theme.titleBarFont
         self.titleFont = theme.titleFont
     }

@@ -22,8 +22,8 @@ class ThemeTests : XCTestCase {
         theme1.labelFont = UIFont.systemFont(ofSize: 84)
         theme1.tintColor = UIColor.purple
         theme1.titleBarBackgroundColor = UIColor.green
-        theme1.titleBarButtonColor = UIColor.blue
-        theme1.titleBarColor = UIColor.lightGray
+        theme1.titleBarButtonLabelColor = UIColor.blue
+        theme1.titleBarTextColor = UIColor.lightGray
         theme1.titleBarFont = UIFont.systemFont(ofSize: 123)
         theme1.titleFont = UIFont.systemFont(ofSize: 32)
 
@@ -41,8 +41,8 @@ class ThemeTests : XCTestCase {
         XCTAssertEqual(copiedTheme.alternateTintColor, UIColor.orange)
         XCTAssertEqual(copiedTheme.tintColor, UIColor.purple)
         XCTAssertEqual(copiedTheme.titleBarBackgroundColor, UIColor.green)
-        XCTAssertEqual(copiedTheme.titleBarButtonColor, UIColor.blue)
-        XCTAssertEqual(copiedTheme.titleBarColor, UIColor.lightGray)
+        XCTAssertEqual(copiedTheme.titleBarButtonLabelColor, UIColor.blue)
+        XCTAssertEqual(copiedTheme.titleBarTextColor, UIColor.lightGray)
     }
     
 }

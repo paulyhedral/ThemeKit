@@ -18,16 +18,16 @@ public class ThemeColorsDisplayViewController : UIViewController, CustomColorHan
 
     @IBOutlet weak var tintColorContainer : UIView!
     @IBOutlet weak var alternateTintColorContainer : UIView!
-    @IBOutlet weak var titleBarColorContainer : UIView!
-    @IBOutlet weak var titleBarButtonColorContainer : UIView!
+    @IBOutlet weak var titleBarTextColorContainer : UIView!
+    @IBOutlet weak var titleBarButtonLabelColorContainer : UIView!
     @IBOutlet weak var titleBarBackgroundColorContainer : UIView!
 
     public var theme : Theme = Theme(id: "none", name: "None") {
         didSet {
             componentControllers[.tintColor]?.color = theme.tintColor
             componentControllers[.alternateTintColor]?.color = theme.alternateTintColor
-            componentControllers[.titleBarColor]?.color = theme.titleBarColor
-            componentControllers[.titleBarButtonColor]?.color = theme.titleBarButtonColor
+            componentControllers[.titleBarTextColor]?.color = theme.titleBarTextColor
+            componentControllers[.titleBarButtonLabelColor]?.color = theme.titleBarButtonLabelColor
             componentControllers[.titleBarBackgroundColor]?.color = theme.titleBarBackgroundColor
         }
     }
@@ -49,8 +49,8 @@ public class ThemeColorsDisplayViewController : UIViewController, CustomColorHan
     public func select(component : ThemeComponent) {
         doComponentSelection(tintColorContainer, selected: (component == .tintColor))
         doComponentSelection(alternateTintColorContainer, selected: (component == .alternateTintColor))
-        doComponentSelection(titleBarColorContainer, selected: (component == .titleBarColor))
-        doComponentSelection(titleBarButtonColorContainer, selected: (component == .titleBarButtonColor))
+        doComponentSelection(titleBarTextColorContainer, selected: (component == .titleBarTextColor))
+        doComponentSelection(titleBarButtonLabelColorContainer, selected: (component == .titleBarButtonLabelColor))
         doComponentSelection(titleBarBackgroundColorContainer, selected: (component == .titleBarBackgroundColor))
     }
 
@@ -87,12 +87,12 @@ public class ThemeColorsDisplayViewController : UIViewController, CustomColorHan
                 vc.handler = self
                 self.componentControllers[.tintColor] = vc
 
-            case "EmbedThemeTitleBarButtonColor":
-                vc.component = ThemeComponent.titleBarButtonColor
-                vc.label = NSLocalizedString("color.titlebarbutton.label", tableName: "ThemeKit", bundle: Bundle(for: ThemeColorsDisplayViewController.self), comment: "")
-                vc.color = theme.titleBarButtonColor
+            case "EmbedThemeTitleBarButtonLabelColor":
+                vc.component = ThemeComponent.titleBarButtonLabelColor
+                vc.label = NSLocalizedString("color.titlebarbuttonlabel.label", tableName: "ThemeKit", bundle: Bundle(for: ThemeColorsDisplayViewController.self), comment: "")
+                vc.color = theme.titleBarButtonLabelColor
                 vc.handler = self
-                self.componentControllers[.titleBarButtonColor] = vc
+                self.componentControllers[.titleBarButtonLabelColor] = vc
 
             case "EmbedThemeAltTintColor":
                 vc.component = ThemeComponent.alternateTintColor
@@ -101,12 +101,12 @@ public class ThemeColorsDisplayViewController : UIViewController, CustomColorHan
                 vc.handler = self
                 self.componentControllers[.alternateTintColor] = vc
 
-            case "EmbedThemeTitleBarColor":
-                vc.component = ThemeComponent.titleBarColor
-                vc.label = NSLocalizedString("color.titlebar.label", tableName: "ThemeKit", bundle: Bundle(for: ThemeColorsDisplayViewController.self), comment: "")
-                vc.color = theme.titleBarColor
+            case "EmbedThemeTitleBarTextColor":
+                vc.component = ThemeComponent.titleBarTextColor
+                vc.label = NSLocalizedString("color.titlebartext.label", tableName: "ThemeKit", bundle: Bundle(for: ThemeColorsDisplayViewController.self), comment: "")
+                vc.color = theme.titleBarTextColor
                 vc.handler = self
-                self.componentControllers[.titleBarColor] = vc
+                self.componentControllers[.titleBarTextColor] = vc
 
             default: break
             }

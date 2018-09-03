@@ -22,7 +22,7 @@ public enum ThemeIdentifier : String {
 public enum ThemeComponent {
     case tintColor
     case alternateTintColor
-    case titleBarColor
-    case titleBarButtonColor
+    case titleBarTextColor
+    case titleBarButtonLabelColor
     case titleBarBackgroundColor
 }

@@ -54,8 +54,8 @@ open class ThemeLoader {
         let tintColor = try UIColor.from(hexValue: try get("tintColor", from: colors))
         let alternateTintColor = try UIColor.from(hexValue: try get("alternateTintColor", from: colors))
         let titleBarBackgroundColor = try UIColor.from(hexValue: try get("titleBarBackgroundColor", from: colors))
-        let titleBarColor = try UIColor.from(hexValue: try get("titleBarColor", from: colors))
-        let titleBarButtonColor = try UIColor.from(hexValue: try get("titleBarButtonColor", from: colors))
+        let titleBarTextColor = try UIColor.from(hexValue: try get("titleBarTextColor", from: colors))
+        let titleBarButtonLabelColor = try UIColor.from(hexValue: try get("titleBarButtonLabelColor", from: colors))
 
         log.debug("Creating theme object.")
         var theme = Theme(id: identifier, name: name)
@@ -66,8 +66,8 @@ open class ThemeLoader {
         theme.titleFont = titleFont
         theme.tintColor = tintColor
         theme.alternateTintColor = alternateTintColor
-        theme.titleBarColor = titleBarColor
-        theme.titleBarButtonColor = titleBarButtonColor
+        theme.titleBarTextColor = titleBarTextColor
+        theme.titleBarButtonLabelColor = titleBarButtonLabelColor
         theme.titleBarBackgroundColor = titleBarBackgroundColor
         theme.barStyle = barStyle
 

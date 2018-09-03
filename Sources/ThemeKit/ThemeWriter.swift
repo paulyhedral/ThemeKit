@@ -48,8 +48,8 @@ public class ThemeWriter {
             "tintColor": theme.tintColor.hexString(),
             "alternateTintColor": theme.alternateTintColor.hexString(),
             "titleBarBackgroundColor": theme.titleBarBackgroundColor.hexString(),
-            "titleBarColor": theme.titleBarColor.hexString(),
-            "titleBarButtonColor": theme.titleBarButtonColor.hexString(),
+            "titleBarTextColor": theme.titleBarTextColor.hexString(),
+            "titleBarButtonLabelColor": theme.titleBarButtonLabelColor.hexString(),
         ]
         log.debug("Adding colors.json file to wrapper.")
         self.fileWrapper.addRegularFile(withContents: try jsonToData(colors), preferredFilename: "colors.json")
