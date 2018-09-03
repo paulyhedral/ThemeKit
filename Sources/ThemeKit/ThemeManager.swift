@@ -23,7 +23,7 @@ public class ThemeManager {
 
     public var currentTheme : Theme {
         didSet {
-            sendNotification(for: currentTheme.id)
+            send(notification: ThemeManager.Notification.ThemeChanged, for: currentTheme.id)
         }
     }
 
@@ -66,11 +66,7 @@ public class ThemeManager {
             let writer = try ThemeWriter(url: themeUrl)
             try writer.write(theme: theme)
 
-            NotificationCenter.default.post(name: ThemeManager.Notification.ThemeUpdated,
-                                            object: self,
-                                            userInfo:  [
-                                                ThemeManager.Notification.Keys.themeIdentifier : theme.id,
-                                                ])
+            send(notification: ThemeManager.Notification.ThemeUpdated, for: theme.id)
         }
     }
 
@@ -127,10 +123,10 @@ public class ThemeManager {
         log.info("Loaded \(self.userThemes.count) theme(s).")
     }
 
-    private func sendNotification(for id : String) {
+    private func send(notification name : NSNotification.Name, for id : String) {
         log.debug("\(#function): id=\(id)")
 
-        NotificationCenter.default.post(name: ThemeManager.Notification.ThemeChanged,
+        NotificationCenter.default.post(name: name,
                                         object: self,
                                         userInfo: [
                                             ThemeManager.Notification.Keys.themeIdentifier : id,
