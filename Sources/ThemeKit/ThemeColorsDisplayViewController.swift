@@ -47,7 +47,6 @@ public class ThemeColorsDisplayViewController : UIViewController, CustomColorHan
     // MARK: - API
 
     public func select(component : ThemeComponent) {
-
         doComponentSelection(tintColorContainer, selected: (component == .tintColor))
         doComponentSelection(alternateTintColorContainer, selected: (component == .alternateTintColor))
         doComponentSelection(titleBarColorContainer, selected: (component == .titleBarColor))
@@ -118,8 +117,8 @@ public class ThemeColorsDisplayViewController : UIViewController, CustomColorHan
     // MARK: - Custom color handler methods
 
     public func colorTouched(for component : ThemeComponent, in viewController : CustomColorViewController) {
-        self.selectionDelegate?.didSelect(component: component, in: self)
         select(component: component)
+        self.selectionDelegate?.didSelect(component: component, in: self)
     }
 
 }
