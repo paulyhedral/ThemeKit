@@ -17,8 +17,16 @@ public protocol CustomColorHandler : class {
 public class CustomColorViewController : UIViewController {
 
     public var component : ThemeComponent = .tintColor
-    public var label : String = "WTF"
-    public var color : UIColor = .black
+    public var label : String = "WTF" {
+        didSet {
+            updateControls()
+        }
+    }
+    public var color : UIColor = .black {
+        didSet {
+            updateControls()
+        }
+    }
 
     public weak var handler : CustomColorHandler?
 
