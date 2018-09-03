@@ -49,13 +49,15 @@ public class CustomColorViewController : UIViewController {
     }
 
 
+    // MARK: - Private methods
+
     private func updateControls() {
 
-        self.colorLabel.text = label
+        self.colorLabel?.text = label
 
-        self.currentColor.backgroundColor = color
+        self.currentColor?.backgroundColor = color
 
-        self.colorLabel.textColor = color.isDark() ? .white : .black
+        self.colorLabel?.textColor = color.isDark() ? .white : .black
     }
 
 
