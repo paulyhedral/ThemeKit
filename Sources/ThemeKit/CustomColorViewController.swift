@@ -47,7 +47,7 @@ public class CustomColorViewController : UIViewController {
 
         self.currentColor.backgroundColor = color
 
-        self.colorLabel.textColor = color.isDark() ? .lightGray : .black
+        self.colorLabel.textColor = color.isDark() ? .white : .black
     }
 
 
