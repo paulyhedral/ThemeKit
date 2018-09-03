@@ -27,8 +27,8 @@ public class ThemeManager {
         }
     }
 
-    private var packagedThemes : [Theme] = []
-    private var userThemes : [Theme] = []
+    private var packagedThemes : [String : Theme] = [:]
+    private var userThemes : [String : Theme] = [:]
 
     public init() {
         self.currentTheme = Theme(id: ThemeIdentifier.default.rawValue,
@@ -36,23 +36,27 @@ public class ThemeManager {
     }
 
     public func allThemes() -> [Theme] {
-        return (packagedThemes + userThemes).filter { self.delegate?.isThemeAvailable($0, in: self) ?? true }
+        return (Array<Theme>(packagedThemes.values) + Array<Theme>(userThemes.values)).filter { self.delegate?.isThemeAvailable($0, in: self) ?? true }
     }
 
     public func theme(id : String) -> Theme? {
         log.debug("\(#function): id=\(id)")
 
-        for theme in (packagedThemes + userThemes) {
-            log.debug("theme=\(theme)")
-            guard (self.delegate?.isThemeAvailable(theme, in: self) ?? true) else { continue }
+        let t = userThemes[id] ?? packagedThemes[id]
+//        for theme in (Array<Theme>(packagedThemes.values) + Array<Theme>(userThemes.values)) {
+        log.debug("theme=\(String(describing: t))")
 
-            if theme.id == id {
-                log.debug("Returning theme: \(theme)")
-                return theme
-            }
-        }
+        guard let theme = t else { return nil }
+        guard (self.delegate?.isThemeAvailable(theme, in: self) ?? true) else { return nil }
 
-        return nil
+        return theme
+//            if theme.id == id {
+//                log.debug("Returning theme: \(theme)")
+//                return theme
+//            }
+//        }
+//
+//        return nil
     }
 
     public func save(theme : Theme) throws {
@@ -86,7 +90,7 @@ public class ThemeManager {
                 do {
                     let theme = try loader.load(url: url)
                     log.debug("theme=\(theme)")
-                    self.packagedThemes.append(theme)
+                    self.packagedThemes[theme.id] = theme
                 }
                 catch {
                     log.error("Error while trying to load packaged theme at URL '\(url)': \(error)")
@@ -112,7 +116,7 @@ public class ThemeManager {
 
                     let theme = try loader.load(url: url)
                     log.debug("theme=\(theme)")
-                    self.userThemes.append(theme)
+                    self.userThemes[theme.id] = theme
                 }
             }
             catch {
