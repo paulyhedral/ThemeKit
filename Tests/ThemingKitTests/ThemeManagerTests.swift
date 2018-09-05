@@ -28,19 +28,19 @@ class ThemeManagerTests : XCTestCase {
         XCTAssertTrue(theme.id == ThemeIdentifier.default.rawValue, "Expected \(ThemeIdentifier.default.rawValue) for current theme; got \(theme.id).")
     }
 
-    func testAddTheme() throws {
-        let thm = ThemeManager()
+    // func testAddTheme() throws {
+    //     let thm = ThemeManager()
 
-        let theme = Theme(id: "test1", name: "Test 1")
-        try thm.save(theme: theme)
+    //     let theme = Theme(id: "test1", name: "Test 1")
+    //     try thm.save(theme: theme)
 
-        let t = thm.theme(id: "test1")
-        XCTAssertNotNil(t)
-        XCTAssertTrue(t?.id == "test1", "Expected theme 'test1', got \(String(describing: t?.id)).")
+    //     let t = thm.theme(id: "test1")
+    //     XCTAssertNotNil(t)
+    //     XCTAssertTrue(t?.id == "test1", "Expected theme 'test1', got \(String(describing: t?.id)).")
 
-        let themes = thm.allThemes()
-        XCTAssertTrue(themes.count == 1, "Expected 1 theme, got \(themes.count).")
-    }
+    //     let themes = thm.allThemes()
+    //     XCTAssertTrue(themes.count == 1, "Expected 1 theme, got \(themes.count).")
+    // }
 
     func testCurrentTheme() {
         let thm = ThemeManager()

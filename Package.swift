@@ -3,15 +3,15 @@
 import PackageDescription
 
 let package = Package(
-    name: "ThemeKit",
+    name: "ThemingKit",
     products: [
-        .library(name: "ThemeKit", type: .dynamic, targets: [ "ThemeKit" ])
+        .library(name: "ThemingKit", type: .dynamic, targets: [ "ThemingKit" ])
     ],
     dependencies: [
         .package(url: "https://github.com/SwiftyBeaver/SwiftyBeaver.git", from: "1.6.0")
     ],
     targets: [
-        .target(name: "ThemeKit", dependencies: [ "SwiftyBeaver" ]),
-        .testTarget(name: "ThemeKitTests", dependencies: [ "ThemeKit" ])
+        .target(name: "ThemingKit", dependencies: [ "SwiftyBeaver" ]),
+        .testTarget(name: "ThemingKitTests", dependencies: [ "ThemingKit" ])
     ]
 )
