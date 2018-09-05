@@ -116,9 +116,14 @@ public class ThemeManager {
                     log.debug("url=\(url)")
                     guard url.pathExtension == "theme" else { continue }
 
-                    let theme = try loader.load(url: url)
-                    log.debug("theme=\(theme)")
-                    self.userThemes[theme.id] = theme
+                    do {
+                        let theme = try loader.load(url: url)
+                        log.debug("theme=\(theme)")
+                        self.userThemes[theme.id] = theme
+                    }
+                    catch {
+                        log.error("Error while trying to load user-defined theme at url \(url): \(error)")
+                    }
                 }
             }
             catch {
