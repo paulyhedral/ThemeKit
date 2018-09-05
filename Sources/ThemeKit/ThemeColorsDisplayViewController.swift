@@ -74,35 +74,35 @@ public class ThemeColorsDisplayViewController : UIViewController, CustomColorHan
             let vc = segue.destination as? CustomColorViewController {
             switch segueId {
             case "EmbedThemeTitleBarBackgroundColor":
-                vc.component = ThemeComponent.titleBarBackgroundColor
+                vc.component = .titleBarBackgroundColor
                 vc.label = NSLocalizedString("color.titlebarbackground.label", tableName: "ThemeKit", bundle: Bundle(for: ThemeColorsDisplayViewController.self), comment: "")
                 vc.color = theme.titleBarBackgroundColor
                 vc.handler = self
                 self.componentControllers[.titleBarBackgroundColor] = vc
 
             case "EmbedThemeTintColor":
-                vc.component = ThemeComponent.tintColor
+                vc.component = .tintColor
                 vc.label = NSLocalizedString("color.tint.label", tableName: "ThemeKit", bundle: Bundle(for: ThemeColorsDisplayViewController.self), comment: "")
                 vc.color = theme.tintColor
                 vc.handler = self
                 self.componentControllers[.tintColor] = vc
 
             case "EmbedThemeTitleBarButtonLabelColor":
-                vc.component = ThemeComponent.titleBarButtonLabelColor
+                vc.component = .titleBarButtonLabelColor
                 vc.label = NSLocalizedString("color.titlebarbuttonlabel.label", tableName: "ThemeKit", bundle: Bundle(for: ThemeColorsDisplayViewController.self), comment: "")
                 vc.color = theme.titleBarButtonLabelColor
                 vc.handler = self
                 self.componentControllers[.titleBarButtonLabelColor] = vc
 
             case "EmbedThemeAltTintColor":
-                vc.component = ThemeComponent.alternateTintColor
+                vc.component = .alternateTintColor
                 vc.label = NSLocalizedString("color.alternatetint.label", tableName: "ThemeKit", bundle: Bundle(for: ThemeColorsDisplayViewController.self), comment: "")
                 vc.color = theme.alternateTintColor
                 vc.handler = self
                 self.componentControllers[.alternateTintColor] = vc
 
             case "EmbedThemeTitleBarTextColor":
-                vc.component = ThemeComponent.titleBarTextColor
+                vc.component = .titleBarTextColor
                 vc.label = NSLocalizedString("color.titlebartext.label", tableName: "ThemeKit", bundle: Bundle(for: ThemeColorsDisplayViewController.self), comment: "")
                 vc.color = theme.titleBarTextColor
                 vc.handler = self
