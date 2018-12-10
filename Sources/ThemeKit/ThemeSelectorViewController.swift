@@ -1,58 +1,90 @@
 //
 //  ThemeSelectorViewController.swift
-//  InitiativeTracker-iOS
+//  ThemingKit
 //
-//  Created by Paul Schifferer on 5/31/18.
+//  Created by Paul Schifferer on 28/5/18.
 //  Copyright © 2018 Pilgrimage Software. All rights reserved.
 //
 
-import UIKit
-import PilgrimageKit
+// import UIKit
 
 
-class ThemeSelectorViewController : UIViewController {
+// public class ThemeSelectorViewController : UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+//     @IBOutlet var darkThemeTapGesture: UITapGestureRecognizer!
+//     @IBOutlet weak var darkThemeSelectedImage : UIImageView!
+//     @IBOutlet var lightThemeTapGesture: UITapGestureRecognizer!
+//     @IBOutlet weak var lightThemeSelectedImage : UIImageView!
+//     @IBOutlet var customThemeTapGesture: UITapGestureRecognizer!
+//     @IBOutlet weak var customThemeSelectedImage : UIImageView!
 
-        // Do any additional setup after loading the view.
-    }
+//     public override func viewDidLoad() {
+//         super.viewDidLoad()
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
+//         updateSelection()
+//     }
 
-    
-    // MARK: - Navigation
+//     public override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//         if let segueId = segue.identifier,
+//             let vc = segue.destination as? ThemeColorsDisplayViewController {
+//             switch segueId {
+//             case "EmbedLightThemeDetails":
+//                 if let theme = ThemeManager.shared.theme(id: ThemeIdentifier.light.rawValue) {
+//                     vc.theme = theme
+//                 }
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-        if let segueId = segue.identifier {
-            var theme : Theme?
-            
-            switch segueId {
-            case "EmbedDarkThemeDetails":
-                 theme = ThemeManager.shared.theme(id: ThemeIdentifier.dark.rawValue)
+//             case "EmbedDarkThemeDetails":
+//                 if let theme = ThemeManager.shared.theme(id: ThemeIdentifier.dark.rawValue) {
+//                     vc.theme = theme
+//                 }
 
-            case "EmbedLightThemeDetails":
-                theme = ThemeManager.shared.theme(id: ThemeIdentifier.light.rawValue)
+//             case "EmbedCustomThemeDetails":
+//                 if let theme = ThemeManager.shared.theme(id: ThemeIdentifier.custom.rawValue) {
+//                     vc.theme = theme
+//                 }
 
-            case "EmbedCustomThemeDetails":
-                theme = ThemeManager.shared.theme(id: ThemeIdentifier.custom.rawValue)
+//             default: break
+//             }
+//         }
+//     }
 
-            default: break
-            }
-            
-            if let t = theme,
-                let vc = segue.destination as? ThemeColorsDisplayViewController {
-vc.theme = t
-            }
-        }
-    }
-    
 
-}
+//     // MARK: - UI callbacks
+
+//     @IBAction func darkThemeSelected(_ sender : UITapGestureRecognizer) {
+//         if let theme = ThemeManager.shared.theme(id: ThemeIdentifier.dark.rawValue) {
+//             ThemeManager.shared.currentTheme = theme
+//         }
+
+//         updateSelection()
+//     }
+
+//     @IBAction func lightThemeSelected(_ sender : UITapGestureRecognizer) {
+//         if let theme = ThemeManager.shared.theme(id: ThemeIdentifier.light.rawValue) {
+//             ThemeManager.shared.currentTheme = theme
+//         }
+
+//         updateSelection()
+//     }
+
+//     @IBAction func customThemeSelected(_ sender : UITapGestureRecognizer) {
+//         if let theme = ThemeManager.shared.theme(id: ThemeIdentifier.custom.rawValue) {
+//             ThemeManager.shared.currentTheme = theme
+//         }
+
+//         updateSelection()
+//     }
+
+
+//     // MARK: - Private methods
+
+//     private func updateSelection() {
+
+//         let theme = ThemeManager.shared.currentTheme
+
+//         darkThemeSelectedImage.isHidden = (theme.id != ThemeIdentifier.dark.rawValue)
+//         lightThemeSelectedImage.isHidden = (theme.id != ThemeIdentifier.light.rawValue)
+//         customThemeSelectedImage.isHidden = (theme.id != ThemeIdentifier.custom.rawValue)
+//     }
+
+// }

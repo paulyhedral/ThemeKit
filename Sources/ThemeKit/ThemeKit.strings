@@ -1,0 +1,12 @@
+/*
+  Localizable.strings
+  ThemingKit
+
+  Created by Paul Schifferer on 8/30/18.
+
+*/
+
+"color.main.label" = "Tint";
+"color.accent.label" = "Accent 1";
+"color.secondaccent.label" = "Accent 2";
+"color.background.label" = "Background";

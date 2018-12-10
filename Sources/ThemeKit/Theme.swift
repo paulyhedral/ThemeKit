@@ -1,46 +1,33 @@
 //
 //  Theme.swift
-//  PilgrimageKit
+//  ThemingKit
 //
 //  Created by Paul Schifferer on 28/5/18.
 //  Copyright © 2018 Pilgrimage Software. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 
 public struct Theme {
     public let id : String
-    public let name : String
-//    public var iconImage : Image?
-//    public var backgroundImage : Image?
-    public var defaultFont : Font
-    public var labelFont : Font
-    public var titleBarFont : Font
-    public var buttonFont : Font
-    public var titleFont : Font
-    public var tintColor : UIColor
-    public var alternateTintColor : UIColor
-    public var titleBarColor : UIColor
-    public var titleBarButtonColor : UIColor
-    public var titleBarBackgroundColor : UIColor
-    #if os(iOS)
-    public var barStyle : UIBarStyle = .black
-    #endif
+    public var name : String
+    public var defaultFont : UIFont
+    public var secondaryFont : UIFont
+    public var mainColor : UIColor
+    public var accentColor : UIColor
+    public var secondAccentColor : UIColor
+    public var backgroundColor : UIColor
 
     public init(id : String, name : String) {
         self.id = id
         self.name = name
-        self.defaultFont = Font.systemFont(ofSize: Font.systemFontSize)
-        self.labelFont = Font.systemFont(ofSize: Font.systemFontSize)
-        self.titleFont = Font.systemFont(ofSize: Font.systemFontSize)
-        self.titleBarFont = Font.systemFont(ofSize: Font.systemFontSize)
-        self.buttonFont = Font.systemFont(ofSize: Font.systemFontSize)
-        self.tintColor = .black
-        self.alternateTintColor = .white
-        self.titleBarColor = .blue
-        self.titleBarButtonColor = .orange
-        self.titleBarBackgroundColor = .green
+        self.defaultFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
+        self.secondaryFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
+        self.mainColor = .black
+        self.accentColor = .white
+        self.secondAccentColor = .blue
+        self.backgroundColor = .orange
     }
 }
 
@@ -55,19 +42,38 @@ extension Theme : Equatable, Hashable {
 
         v ^= id.hashValue
         v ^= name.hashValue
-//        v ^= iconImage?.hashValue ?? 0
-//        v ^= backgroundImage?.hashValue ?? 0
         v ^= defaultFont.hashValue
-        v ^= labelFont.hashValue
-        v ^= titleBarFont.hashValue
-        v ^= buttonFont.hashValue
-        v ^= titleFont.hashValue
-        v ^= tintColor.hashValue
-        v ^= alternateTintColor.hashValue
-        v ^= titleBarColor.hashValue
-        v ^= titleBarButtonColor.hashValue
-        v ^= titleBarBackgroundColor.hashValue
+        v ^= secondaryFont.hashValue
+        v ^= mainColor.hashValue
+        v ^= accentColor.hashValue
+        v ^= secondAccentColor.hashValue
+        v ^= backgroundColor.hashValue
 
         return v
     }
+}
+
+
+extension Theme : CustomStringConvertible {
+
+    public var description: String {
+        return "Theme { id=\(id); name=\(name); defaultFont=\(defaultFont); secondaryFont=\(secondaryFont); " +
+        "mainColor=\(mainColor); accentColor=\(accentColor); secondAccentColor=\(secondAccentColor); " +
+        "backgroundColor=\(backgroundColor) }"
+    }
+
+}
+
+
+extension Theme {
+
+    public mutating func copy(from theme : Theme) {
+        self.defaultFont = theme.defaultFont
+        self.secondaryFont = theme.secondaryFont
+        self.mainColor = theme.mainColor
+        self.accentColor = theme.accentColor
+        self.secondAccentColor = theme.secondAccentColor
+        self.backgroundColor = theme.backgroundColor
+    }
+
 }

@@ -1,6 +1,6 @@
 //
 //  ThemeKit.h
-//  ThemeKit
+//  ThemingKit
 //
 //  Created by Paul Schifferer on 23/5/17.
 //  Copyright © 2018 Pilgrimage Software. All rights reserved.
