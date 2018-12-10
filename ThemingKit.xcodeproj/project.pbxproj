@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		DA2E1E1920D6FDED00575F11 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA2E1E1720D6FDED00575F11 /* Info.plist */; };
-		DA2E1E1A20D6FDED00575F11 /* ThemeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DA2E1E1820D6FDED00575F11 /* ThemeKit.h */; };
+		DA2E1E1A20D6FDED00575F11 /* ThemingKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DA2E1E1820D6FDED00575F11 /* ThemingKit.h */; };
 		DA2E1E2420D6FEB500575F11 /* PackagedThemeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2E1E1D20D6FEB500575F11 /* PackagedThemeReader.swift */; };
 		DA2E1E2520D6FEB500575F11 /* UserDefinedThemeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2E1E1E20D6FEB500575F11 /* UserDefinedThemeReader.swift */; };
 		DA2E1E2620D6FEB500575F11 /* ThemeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2E1E1F20D6FEB500575F11 /* ThemeReader.swift */; };
@@ -24,14 +24,14 @@
 			containerPortal = 5B280EF91ED4B9C400FDA3AB /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 5B280F011ED4B9C400FDA3AB;
-			remoteInfo = ThemeKit;
+			remoteInfo = ThemingKit;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		DA2E1E1520D6FDDD00575F11 /* ThemeKit.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = ThemeKit.xcconfig; sourceTree = "<group>"; };
+		DA2E1E1520D6FDDD00575F11 /* ThemingKit.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = ThemingKit.xcconfig; sourceTree = "<group>"; };
 		DA2E1E1720D6FDED00575F11 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DA2E1E1820D6FDED00575F11 /* ThemeKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemeKit.h; sourceTree = "<group>"; };
+		DA2E1E1820D6FDED00575F11 /* ThemingKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemingKit.h; sourceTree = "<group>"; };
 		DA2E1E1D20D6FEB500575F11 /* PackagedThemeReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackagedThemeReader.swift; sourceTree = "<group>"; };
 		DA2E1E1E20D6FEB500575F11 /* UserDefinedThemeReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefinedThemeReader.swift; sourceTree = "<group>"; };
 		DA2E1E1F20D6FEB500575F11 /* ThemeReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeReader.swift; sourceTree = "<group>"; };
@@ -79,7 +79,7 @@
 		5B2D15F81EDA2C2F005A86EE /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
-				DA2E1E1520D6FDDD00575F11 /* ThemeKit.xcconfig */,
+				DA2E1E1520D6FDDD00575F11 /* ThemingKit.xcconfig */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -87,12 +87,12 @@
 		5BC80C3F1EE22A3600834A91 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				5BC80C401EE22A3600834A91 /* ThemeKit */,
+				5BC80C401EE22A3600834A91 /* ThemingKit */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
 		};
-		5BC80C401EE22A3600834A91 /* ThemeKit */ = {
+		5BC80C401EE22A3600834A91 /* ThemingKit */ = {
 			isa = PBXGroup;
 			children = (
 				DA2E1E1720D6FDED00575F11 /* Info.plist */,
@@ -103,24 +103,24 @@
 				DA2E1E1F20D6FEB500575F11 /* ThemeReader.swift */,
 				DA2E1E2320D6FEB500575F11 /* ThemeWriter.swift */,
 				DA2E1E1E20D6FEB500575F11 /* UserDefinedThemeReader.swift */,
-				DA2E1E1820D6FDED00575F11 /* ThemeKit.h */,
+				DA2E1E1820D6FDED00575F11 /* ThemingKit.h */,
 			);
-			path = ThemeKit;
+			path = ThemingKit;
 			sourceTree = "<group>";
 		};
 		DA2E1E1B20D6FDFC00575F11 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				DA2E1E1C20D6FDFC00575F11 /* ThemeKitTests */,
+				DA2E1E1C20D6FDFC00575F11 /* ThemingKitTests */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
 		};
-		DA2E1E1C20D6FDFC00575F11 /* ThemeKitTests */ = {
+		DA2E1E1C20D6FDFC00575F11 /* ThemingKitTests */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = ThemeKitTests;
+			path = ThemingKitTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -130,16 +130,16 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA2E1E1A20D6FDED00575F11 /* ThemeKit.h in Headers */,
+				DA2E1E1A20D6FDED00575F11 /* ThemingKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		5B280F011ED4B9C400FDA3AB /* ThemeKit */ = {
+		5B280F011ED4B9C400FDA3AB /* ThemingKit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5B280F161ED4B9C500FDA3AB /* Build configuration list for PBXNativeTarget "ThemeKit" */;
+			buildConfigurationList = 5B280F161ED4B9C500FDA3AB /* Build configuration list for PBXNativeTarget "ThemingKit" */;
 			buildPhases = (
 				5B280EFD1ED4B9C400FDA3AB /* Sources */,
 				5B280EFE1ED4B9C400FDA3AB /* Frameworks */,
@@ -150,13 +150,13 @@
 			);
 			dependencies = (
 			);
-			name = ThemeKit;
-			productName = ThemeKit;
+			name = ThemingKit;
+			productName = ThemingKit;
 			productType = "com.apple.product-type.framework";
 		};
-		5B280F0A1ED4B9C500FDA3AB /* ThemeKitTests */ = {
+		5B280F0A1ED4B9C500FDA3AB /* ThemingKitTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5B280F191ED4B9C500FDA3AB /* Build configuration list for PBXNativeTarget "ThemeKitTests" */;
+			buildConfigurationList = 5B280F191ED4B9C500FDA3AB /* Build configuration list for PBXNativeTarget "ThemingKitTests" */;
 			buildPhases = (
 				5B280F071ED4B9C500FDA3AB /* Sources */,
 				5B280F081ED4B9C500FDA3AB /* Frameworks */,
@@ -167,8 +167,8 @@
 			dependencies = (
 				5B280F0E1ED4B9C500FDA3AB /* PBXTargetDependency */,
 			);
-			name = ThemeKitTests;
-			productName = ThemeKitTests;
+			name = ThemingKitTests;
+			productName = ThemingKitTests;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -194,7 +194,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 5B280EFC1ED4B9C400FDA3AB /* Build configuration list for PBXProject "ThemeKit" */;
+			buildConfigurationList = 5B280EFC1ED4B9C400FDA3AB /* Build configuration list for PBXProject "ThemingKit" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -206,8 +206,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				5B280F011ED4B9C400FDA3AB /* ThemeKit */,
-				5B280F0A1ED4B9C500FDA3AB /* ThemeKitTests */,
+				5B280F011ED4B9C400FDA3AB /* ThemingKit */,
+				5B280F0A1ED4B9C500FDA3AB /* ThemingKitTests */,
 			);
 		};
 /* End PBXProject section */
@@ -257,7 +257,7 @@
 /* Begin PBXTargetDependency section */
 		5B280F0E1ED4B9C500FDA3AB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 5B280F011ED4B9C400FDA3AB /* ThemeKit */;
+			target = 5B280F011ED4B9C400FDA3AB /* ThemingKit */;
 			targetProxy = 5B280F0D1ED4B9C500FDA3AB /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -366,7 +366,7 @@
 		};
 		5B280F171ED4B9C500FDA3AB /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DA2E1E1520D6FDDD00575F11 /* ThemeKit.xcconfig */;
+			baseConfigurationReference = DA2E1E1520D6FDDD00575F11 /* ThemingKit.xcconfig */;
 			buildSettings = {
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -377,7 +377,7 @@
 		};
 		5B280F181ED4B9C500FDA3AB /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DA2E1E1520D6FDDD00575F11 /* ThemeKit.xcconfig */;
+			baseConfigurationReference = DA2E1E1520D6FDDD00575F11 /* ThemingKit.xcconfig */;
 			buildSettings = {
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -390,9 +390,9 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = DQUTMGPMX5;
-				INFOPLIST_FILE = ThemeKitTests/Info.plist;
+				INFOPLIST_FILE = ThemingKitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.pilgrimagesoftware.lib.ThemeKitTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pilgrimagesoftware.lib.ThemingKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.1;
 			};
@@ -403,9 +403,9 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = DQUTMGPMX5;
-				INFOPLIST_FILE = ThemeKitTests/Info.plist;
+				INFOPLIST_FILE = ThemingKitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.pilgrimagesoftware.lib.ThemeKitTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pilgrimagesoftware.lib.ThemingKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.1;
 			};
@@ -414,7 +414,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		5B280EFC1ED4B9C400FDA3AB /* Build configuration list for PBXProject "ThemeKit" */ = {
+		5B280EFC1ED4B9C400FDA3AB /* Build configuration list for PBXProject "ThemingKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5B280F141ED4B9C500FDA3AB /* Debug */,
@@ -423,7 +423,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5B280F161ED4B9C500FDA3AB /* Build configuration list for PBXNativeTarget "ThemeKit" */ = {
+		5B280F161ED4B9C500FDA3AB /* Build configuration list for PBXNativeTarget "ThemingKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5B280F171ED4B9C500FDA3AB /* Debug */,
@@ -432,7 +432,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5B280F191ED4B9C500FDA3AB /* Build configuration list for PBXNativeTarget "ThemeKitTests" */ = {
+		5B280F191ED4B9C500FDA3AB /* Build configuration list for PBXNativeTarget "ThemingKitTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5B280F1A1ED4B9C500FDA3AB /* Debug */,

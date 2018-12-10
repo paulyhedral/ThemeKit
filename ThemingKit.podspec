@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
-	s.name                    = 'ThemeKit'
-	s.version                 = '1.0'
+	s.name                    = 'ThemingKit'
+	s.version                 = '1.1'
 	s.summary                 = 'Library for theming an iOS application easily'
 
 	s.homepage                = 'https://pilgrimagesoftware.com'
@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
 	s.author                  = { 'Paul Schifferer' => 'paul@schifferers.net' }
 	s.social_media_url        = 'https://twitter.com/paulyhedral'
 
-	s.source                  = { git: 'ssh://git@github.com/paulyhedral/ThemeKit.git',
+	s.source                  = { git: 'ssh://git@github.com/paulyhedral/ThemingKit.git',
 								  tag: s.version.to_s, submodules: true }
 	s.frameworks              = 'Foundation'
 	s.ios.frameworks          = 'UIKit'
