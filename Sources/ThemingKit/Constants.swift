@@ -19,9 +19,14 @@ public enum ThemeIdentifier : String {
     case `default` = "default"
 }
 
-public enum ThemeComponent {
-    case mainColor
-    case accentColor
-    case secondAccentColor
-    case backgroundColor
+public enum ThemeColorType : String {
+    case main
+    case accent1
+    case accent2
+    case background
+}
+
+public enum ThemeFontType : String {
+    case `default`
+    case secondary
 }

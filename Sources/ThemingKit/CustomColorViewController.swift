@@ -10,13 +10,13 @@ import UIKit
 
 public protocol CustomColorHandler : class {
 
-    func colorTouched(for component : ThemeComponent, in viewController : CustomColorViewController)
+    func colorTouched(for component : ThemeColorType, in viewController : CustomColorViewController)
 
 }
 
 public class CustomColorViewController : UIViewController {
 
-    public var component : ThemeComponent = .mainColor
+    public var component : ThemeColorType = .mainColor
     public var label : String = "WTF" {
         didSet {
             updateControls()

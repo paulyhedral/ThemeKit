@@ -56,7 +56,7 @@ public class ThemeWriter {
 
     private func buildFontInfo(_ font : UIFont) -> [String : Any] {
         let fontInfo : [String : Any] = [
-            "name": font.fontName,
+            "name": font.familyName,
             "size": Float(font.pointSize),
         ]
         return fontInfo

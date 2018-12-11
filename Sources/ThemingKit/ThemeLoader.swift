@@ -82,7 +82,7 @@ open class ThemeLoader {
         throw ThemeLoaderError.missingContents(name)
     }
 
-    private func processFont(_ json : [String : Any], named name : String) throws -> UIFont {
+    private func processFont(_ json : [String : Any], named name : String) throws -> UIFont{
         log.debug("\(#function): json=\(json), name=\(name)")
         if let fontInfo = json[name] as? [String : Any],
             let fontName = fontInfo["name"] as? String,
