@@ -16,7 +16,7 @@ public protocol CustomColorHandler : class {
 
 public class CustomColorViewController : UIViewController {
 
-    public var component : ThemeColorType = .mainColor
+    public var component : ThemeColorType = .main
     public var label : String = "WTF" {
         didSet {
             updateControls()

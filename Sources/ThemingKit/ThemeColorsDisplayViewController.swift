@@ -23,10 +23,10 @@ public class ThemeColorsDisplayViewController : UIViewController, CustomColorHan
 
     public var theme : Theme = Theme(id: "none", name: "None") {
         didSet {
-            componentControllers[.mainColor]?.color = theme.mainColor
-            componentControllers[.accentColor]?.color = theme.accentColor
-            componentControllers[.secondAccentColor]?.color = theme.secondAccentColor
-            componentControllers[.backgroundColor]?.color = theme.backgroundColor
+            componentControllers[.main]?.color = theme.mainColor
+            componentControllers[.accent1]?.color = theme.accentColor
+            componentControllers[.accent2]?.color = theme.secondAccentColor
+            componentControllers[.background]?.color = theme.backgroundColor
         }
     }
     public weak var selectionDelegate : ThemeColorSelectionDelegate?
@@ -45,10 +45,10 @@ public class ThemeColorsDisplayViewController : UIViewController, CustomColorHan
     // MARK: - API
 
     public func select(component : ThemeColorType) {
-        doComponentSelection(mainColorContainer, selected: (component == .mainColor))
-        doComponentSelection(accentColorContainer, selected: (component == .accentColor))
-        doComponentSelection(secondAccentColorContainer, selected: (component == .secondAccentColor))
-        doComponentSelection(backgroundColorContainer, selected: (component == .backgroundColor))
+        doComponentSelection(mainColorContainer, selected: (component == .main))
+        doComponentSelection(accentColorContainer, selected: (component == .accent1))
+        doComponentSelection(secondAccentColorContainer, selected: (component == .accent2))
+        doComponentSelection(backgroundColorContainer, selected: (component == .background))
     }
 
 
@@ -71,32 +71,32 @@ public class ThemeColorsDisplayViewController : UIViewController, CustomColorHan
             let vc = segue.destination as? CustomColorViewController {
             switch segueId {
             case "EmbedThemeBackgroundColor":
-                vc.component = .backgroundColor
+                vc.component = .background
                 vc.label = NSLocalizedString("color.background.label", tableName: "ThemingKit", bundle: Bundle(for: ThemeColorsDisplayViewController.self), comment: "")
                 vc.color = theme.backgroundColor
                 vc.handler = self
-                self.componentControllers[.backgroundColor] = vc
+                self.componentControllers[.background] = vc
 
             case "EmbedThemeMainColor":
-                vc.component = .mainColor
+                vc.component = .main
                 vc.label = NSLocalizedString("color.main.label", tableName: "ThemingKit", bundle: Bundle(for: ThemeColorsDisplayViewController.self), comment: "")
                 vc.color = theme.mainColor
                 vc.handler = self
-                self.componentControllers[.mainColor] = vc
+                self.componentControllers[.main] = vc
 
             case "EmbedThemeAccentTintColor":
-                vc.component = .accentColor
+                vc.component = .accent1
                 vc.label = NSLocalizedString("color.accent.label", tableName: "ThemingKit", bundle: Bundle(for: ThemeColorsDisplayViewController.self), comment: "")
                 vc.color = theme.accentColor
                 vc.handler = self
-                self.componentControllers[.accentColor] = vc
+                self.componentControllers[.accent1] = vc
 
             case "EmbedThemeSecondAccentColor":
-                vc.component = .secondAccentColor
+                vc.component = .accent2
                 vc.label = NSLocalizedString("color.secondaccent.label", tableName: "ThemingKit", bundle: Bundle(for: ThemeColorsDisplayViewController.self), comment: "")
                 vc.color = theme.secondAccentColor
                 vc.handler = self
-                self.componentControllers[.secondAccentColor] = vc
+                self.componentControllers[.accent2] = vc
 
             default: break
             }
