@@ -80,7 +80,7 @@
 
 //     private func updateSelection() {
 
-//         let theme = ThemeManager.shared.currentTheme
+//         let apm = AppearanceManager.shared
 
 //         darkThemeSelectedImage.isHidden = (theme.id != ThemeIdentifier.dark.rawValue)
 //         lightThemeSelectedImage.isHidden = (theme.id != ThemeIdentifier.light.rawValue)
