@@ -43,7 +43,9 @@ open class ThemeLoader {
             throw ThemeLoaderError.invalidContents("fonts")
         }
         let defaultFont = try processFont(fonts, named: "defaultFont")
+        let defaultBoldFont = try processFont(fonts, named: "defaultBoldFont")
         let secondaryFont = try processFont(fonts, named: "secondaryFont")
+        let secondaryBoldFont = try processFont(fonts, named: "secondaryBoldFont")
 
         guard let colors = try JSONSerialization.jsonObject(with: try loadWrapperContents(fw, named: "colors"), options: []) as? [String : String] else {
             throw ThemeLoaderError.invalidContents("colors")
@@ -56,7 +58,9 @@ open class ThemeLoader {
         log.debug("Creating theme object.")
         var theme = Theme(id: identifier, name: name)
         theme.defaultFont = defaultFont
+        theme.defaultBoldFont = defaultBoldFont
         theme.secondaryFont = secondaryFont
+        theme.secondaryBoldFont = secondaryBoldFont
         theme.mainColor = mainColor
         theme.accentColor = accentColor
         theme.secondAccentColor = secondAccentColor

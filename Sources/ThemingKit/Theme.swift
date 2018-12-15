@@ -13,7 +13,9 @@ public struct Theme {
     public let id : String
     public var name : String
     public var defaultFont : UIFont
+    public var defaultBoldFont : UIFont
     public var secondaryFont : UIFont
+    public var secondaryBoldFont : UIFont
     public var mainColor : UIColor
     public var accentColor : UIColor
     public var secondAccentColor : UIColor
@@ -23,7 +25,9 @@ public struct Theme {
         self.id = id
         self.name = name
         self.defaultFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
+        self.defaultBoldFont = UIFont.boldSystemFont(ofSize: UIFont.systemFontSize)
         self.secondaryFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
+        self.secondaryBoldFont = UIFont.boldSystemFont(ofSize: UIFont.systemFontSize)
         self.mainColor = .black
         self.accentColor = .white
         self.secondAccentColor = .blue
@@ -43,7 +47,9 @@ extension Theme : Equatable, Hashable {
         v ^= id.hashValue
         v ^= name.hashValue
         v ^= defaultFont.hashValue
+        v ^= defaultBoldFont.hashValue
         v ^= secondaryFont.hashValue
+        v ^= secondaryBoldFont.hashValue
         v ^= mainColor.hashValue
         v ^= accentColor.hashValue
         v ^= secondAccentColor.hashValue
@@ -57,9 +63,11 @@ extension Theme : Equatable, Hashable {
 extension Theme : CustomStringConvertible {
 
     public var description: String {
-        return "Theme { id=\(id); name=\(name); defaultFont=\(defaultFont); secondaryFont=\(secondaryFont); " +
-        "mainColor=\(mainColor); accentColor=\(accentColor); secondAccentColor=\(secondAccentColor); " +
-        "backgroundColor=\(backgroundColor) }"
+        return "Theme { id=\(id); name=\(name); " +
+            "defaultFont=\(defaultFont); defaultBoldFont=\(defaultBoldFont); " +
+            "secondaryFont=\(secondaryFont); secondaryBoldFont=\(secondaryBoldFont); " +
+            "mainColor=\(mainColor); accentColor=\(accentColor); secondAccentColor=\(secondAccentColor); " +
+            "backgroundColor=\(backgroundColor) }"
     }
 
 }
@@ -69,7 +77,9 @@ extension Theme {
 
     public mutating func copy(from theme : Theme) {
         self.defaultFont = theme.defaultFont
+        self.defaultBoldFont = theme.defaultBoldFont
         self.secondaryFont = theme.secondaryFont
+        self.secondaryBoldFont = theme.secondaryBoldFont
         self.mainColor = theme.mainColor
         self.accentColor = theme.accentColor
         self.secondAccentColor = theme.secondAccentColor

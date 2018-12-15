@@ -36,7 +36,9 @@ public class ThemeWriter {
 
         let fonts : [String : Any] = [
             "defaultFont": buildFontInfo(theme.defaultFont),
+            "defaultBoldFont": buildFontInfo(theme.defaultBoldFont),
             "secondaryFont": buildFontInfo(theme.secondaryFont),
+            "secondaryBoldFont": buildFontInfo(theme.secondaryBoldFont),
         ]
         log.debug("Adding fonts.json file to wrapper.")
         self.fileWrapper.addRegularFile(withContents: try jsonToData(fonts), preferredFilename: "fonts.json")
