@@ -2,14 +2,14 @@
 #include "../Submodules/xcconfigs/Base/Targets/Framework.xcconfig"
 #include "../Submodules/xcconfigs/Base/Configurations/Release.xcconfig"
 
-PRODUCT_NAME = ThemeKit
-PRODUCT_BUNDLE_IDENTIFIER = com.pilgrimagesoftware.lib.ThemeKit
-MODULE_NAME = ThemeKit
-IBSC_MODULE = ThemeKit
-PRODUCT_MODULE_NAME = ThemeKit
-EXECUTABLE_NAME = ThemeKit
+PRODUCT_NAME = ThemingKit
+PRODUCT_BUNDLE_IDENTIFIER = com.pilgrimagesoftware.lib.ThemingKit
+MODULE_NAME = ThemingKit
+IBSC_MODULE = ThemingKit
+PRODUCT_MODULE_NAME = ThemingKit
+EXECUTABLE_NAME = ThemingKit
 
-INFOPLIST_FILE = Sources/ThemeKit/Info.plist
+INFOPLIST_FILE = Sources/ThemingKit/Info.plist
 
 SWIFT_VERSION = 4.1
 
