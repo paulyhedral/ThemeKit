@@ -36,7 +36,11 @@ public class ThemeManager {
     }
 
     public func allThemes() -> [Theme] {
-        return (Array<Theme>(packagedThemes.values) + Array<Theme>(userThemes.values)).filter { self.delegate?.isThemeAvailable($0, in: self) ?? true }
+        let packagedThemes = Array<Theme>(self.packagedThemes.values)
+        let userThemes = Array<Theme>(self.userThemes.values)
+        let allThemes = (packagedThemes + userThemes)
+        let availableThemes = allThemes.filter { self.delegate?.isThemeAvailable($0, in: self) ?? true }
+        return availableThemes
     }
 
     public func theme(id : String) -> Theme? {
