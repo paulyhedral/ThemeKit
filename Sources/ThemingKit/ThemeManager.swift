@@ -92,7 +92,7 @@ public class ThemeManager {
                     self.packagedThemes[theme.id] = theme
                 }
                 catch {
-                    log.error("Error while trying to load packaged theme at URL '\(url)': \(error)")
+                    log.error("Error while trying to load packaged theme at URL '\(url.absoluteString)': \(error)")
                 }
             }
         }

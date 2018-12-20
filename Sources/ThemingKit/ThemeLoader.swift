@@ -77,25 +77,36 @@ open class ThemeLoader {
 
     private func loadWrapperContents(_ wrapper : FileWrapper, named name : String) throws -> Data {
         log.debug("\(#function): wrapper=\(wrapper), name=\(name)")
-        if let wrappers = wrapper.fileWrappers,
-            let w = wrappers["\(name).json"],
-            let d = w.regularFileContents {
-            return d
+        guard let wrappers = wrapper.fileWrappers else {
+            throw ThemeLoaderError.missingContents("file-wrapper")
+        }
+        let filename = "\(name).json"
+        guard let w = wrappers[filename] else {
+            throw ThemeLoaderError.missingContents(filename)
+        }
+        guard let d = w.regularFileContents else {
+            throw ThemeLoaderError.invalidContents(filename)
         }
 
-        throw ThemeLoaderError.missingContents(name)
+        return d
     }
 
     private func processFont(_ json : [String : Any], named name : String) throws -> UIFont{
         log.debug("\(#function): json=\(json), name=\(name)")
-        if let fontInfo = json[name] as? [String : Any],
-            let fontName = fontInfo["name"] as? String,
-            let fontSize = fontInfo["size"] as? Float,
-            let font = UIFont(name: fontName, size: CGFloat(fontSize)) {
-            return font
+        guard let fontInfo = json[name] as? [String : Any] else {
+            throw ThemeLoaderError.missingContents(name)
+        }
+        guard let fontName = fontInfo["name"] as? String else {
+            throw ThemeLoaderError.invalidContents("name")
+        }
+        guard let fontSize = fontInfo["size"] as? Float else {
+            throw ThemeLoaderError.invalidContents("size")
+        }
+        guard let font = UIFont(name: fontName, size: CGFloat(fontSize)) else {
+            throw ThemeLoaderError.invalidContents("\(fontName)/\(fontSize)")
         }
 
-        throw ThemeLoaderError.missingContents(name)
+        return font
     }
 
     private func get(_ key : String, from dict : [String : Any]) throws -> String {
