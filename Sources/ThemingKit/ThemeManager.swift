@@ -40,7 +40,8 @@ public class ThemeManager {
         let userThemes = Array<Theme>(self.userThemes.values)
         let allThemes = (packagedThemes + userThemes)
         let availableThemes = allThemes.filter { self.delegate?.isThemeAvailable($0, in: self) ?? true }
-        return availableThemes
+        let sortedThemes = availableThemes.sorted(by: { $0.name < $1.name })
+        return sortedThemes
     }
 
     public func theme(id : String) -> Theme? {
