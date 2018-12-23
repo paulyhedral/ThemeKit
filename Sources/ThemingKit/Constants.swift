@@ -30,3 +30,8 @@ public enum ThemeFontType : String {
     case `default`
     case secondary
 }
+
+public enum ThemeStyle : String {
+    case dark
+    case light 
+}

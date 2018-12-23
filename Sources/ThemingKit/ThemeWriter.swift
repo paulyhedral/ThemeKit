@@ -28,11 +28,11 @@ public class ThemeWriter {
         ]
         self.fileWrapper.addRegularFile(withContents: try jsonToData(meta), preferredFilename: "meta.json")
 
-        // let ui : [String : String] = [
-        //     "barStyle": "\(theme.barStyle.rawValue)",
-        // ]
-        // log.debug("Adding ui.json file to wrapper.")
-        // self.fileWrapper.addRegularFile(withContents: try jsonToData(ui), preferredFilename: "ui.json")
+         let ui : [String : String] = [
+             "style": "\(theme.style.rawValue)",
+         ]
+         log.debug("Adding ui.json file to wrapper.")
+         self.fileWrapper.addRegularFile(withContents: try jsonToData(ui), preferredFilename: "ui.json")
 
         let fonts : [String : Any] = [
             "defaultFont": buildFontInfo(theme.defaultFont),

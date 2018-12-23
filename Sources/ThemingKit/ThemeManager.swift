@@ -32,7 +32,8 @@ public class ThemeManager {
 
     public init() {
         self.currentTheme = Theme(id: ThemeIdentifier.default.rawValue,
-                                  name: "Default")
+                                  name: "Default",
+                                  style: .dark)
     }
 
     public func allThemes() -> [Theme] {

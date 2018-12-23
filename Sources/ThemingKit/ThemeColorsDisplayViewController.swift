@@ -21,7 +21,7 @@ public class ThemeColorsDisplayViewController : UIViewController, CustomColorHan
     @IBOutlet weak var secondAccentColorContainer : UIView!
     @IBOutlet weak var backgroundColorContainer : UIView!
 
-    public var theme : Theme = Theme(id: "none", name: "None") {
+    public var theme : Theme = Theme(id: "none", name: "None", style: .dark) {
         didSet {
             componentControllers[.main]?.color = theme.mainColor
             componentControllers[.accent1]?.color = theme.accentColor

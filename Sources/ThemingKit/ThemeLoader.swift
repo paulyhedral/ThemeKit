@@ -24,20 +24,20 @@ open class ThemeLoader {
         let identifier = try get("id", from: meta)
         let name = try get("name", from: meta)
 
-        // let barStyle : UIBarStyle
-        // guard let ui = try JSONSerialization.jsonObject(with: try loadWrapperContents(fw, named: "ui"), options: []) as? [String : Any] else {
-        //     throw ThemeLoaderError.invalidContents("ui")
-        // }
-        // if let s = ui["barStyle"] as? String,
-        //     let i = Int(s),
-        //     let b = UIBarStyle(rawValue: i) {
-        //     log.debug("b=\(b)")
-        //     barStyle = b
-        // }
-        // else {
-        //     log.debug("Setting bar style to .black")
-        //     barStyle = .black
-        // }
+        let style : ThemeStyle
+        guard let ui = try JSONSerialization.jsonObject(with: try loadWrapperContents(fw, named: "ui"), options: []) as? [String : Any] else {
+            throw ThemeLoaderError.invalidContents("ui")
+        }
+        if let s = ui["style"] as? String,
+            //     let i = Int(s),
+            let ts = ThemeStyle(rawValue: s) {
+            log.debug("ts=\(ts)")
+            style = ts
+        }
+        else {
+            log.debug("Setting style to .dark")
+            style = .dark
+        }
 
         guard let fonts = try JSONSerialization.jsonObject(with: try loadWrapperContents(fw, named: "fonts"), options: []) as? [String : Any] else {
             throw ThemeLoaderError.invalidContents("fonts")
@@ -56,7 +56,7 @@ open class ThemeLoader {
         let secondAccentColor = try UIColor.from(hexValue: try get("secondAccentColor", from: colors))
 
         log.debug("Creating theme object.")
-        var theme = Theme(id: identifier, name: name)
+        var theme = Theme(id: identifier, name: name, style: style)
         theme.defaultFont = defaultFont
         theme.defaultBoldFont = defaultBoldFont
         theme.secondaryFont = secondaryFont

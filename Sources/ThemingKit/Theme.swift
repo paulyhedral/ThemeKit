@@ -12,6 +12,7 @@ import UIKit
 public struct Theme {
     public let id : String
     public var name : String
+    public var style : ThemeStyle
     public var defaultFont : UIFont
     public var defaultBoldFont : UIFont
     public var secondaryFont : UIFont
@@ -21,9 +22,10 @@ public struct Theme {
     public var secondAccentColor : UIColor
     public var backgroundColor : UIColor
 
-    public init(id : String, name : String) {
+    public init(id : String, name : String, style : ThemeStyle) {
         self.id = id
         self.name = name
+        self.style = style
         self.defaultFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
         self.defaultBoldFont = UIFont.boldSystemFont(ofSize: UIFont.systemFontSize)
         self.secondaryFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
@@ -46,6 +48,7 @@ extension Theme : Equatable, Hashable {
 
         v ^= id.hashValue
         v ^= name.hashValue
+        v ^= style.hashValue
         v ^= defaultFont.hashValue
         v ^= defaultBoldFont.hashValue
         v ^= secondaryFont.hashValue
@@ -63,7 +66,7 @@ extension Theme : Equatable, Hashable {
 extension Theme : CustomStringConvertible {
 
     public var description: String {
-        return "Theme { id=\(id); name=\(name); " +
+        return "Theme { id=\(id); name=\(name); style=\(style); " +
             "defaultFont=\(defaultFont); defaultBoldFont=\(defaultBoldFont); " +
             "secondaryFont=\(secondaryFont); secondaryBoldFont=\(secondaryBoldFont); " +
             "mainColor=\(mainColor); accentColor=\(accentColor); secondAccentColor=\(secondAccentColor); " +
@@ -76,6 +79,7 @@ extension Theme : CustomStringConvertible {
 extension Theme {
 
     public mutating func copy(from theme : Theme) {
+        self.style = theme.style 
         self.defaultFont = theme.defaultFont
         self.defaultBoldFont = theme.defaultBoldFont
         self.secondaryFont = theme.secondaryFont
