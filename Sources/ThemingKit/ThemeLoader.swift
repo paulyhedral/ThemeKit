@@ -16,18 +16,18 @@ open class ThemeLoader {
     open func load(url : URL) throws -> Theme {
         log.info("Loading theme from URL: \(url.absoluteString).")
 
-let d = try Data(contentsOf: url, options: [ .uncached ])
+        let d = try Data(contentsOf: url, options: [ .uncached ])
 
         guard let j = try JSONSerialization.jsonObject(with: d, options: []) as? [String : Any] else {
-        throw ThemeLoaderError.invalidContents(url.absoluteString)
-    }
+            throw ThemeLoaderError.invalidContents(url.absoluteString)
+        }
 
         let identifier = try get("id", from: j)
         let name = try get("name", from: j)
 
         let style : ThemeStyle
-     let s = try get("style", from: j)
-            if let ts = ThemeStyle(rawValue: s) {
+        let s = try get("style", from: j)
+        if let ts = ThemeStyle(rawValue: s) {
             log.debug("ts=\(ts)")
             style = ts
         }
@@ -42,9 +42,9 @@ let d = try Data(contentsOf: url, options: [ .uncached ])
         let primaryFontName = try processFont(f, named: "primary")
         let secondaryFontName = try processFont(f, named: "secondary")
 
-//        guard let colors = try JSONSerialization.jsonObject(with: try loadWrapperContents(fw, named: "colors"), options: []) as? [String : String] else {
-//            throw ThemeLoaderError.invalidContents("colors")
-//        }
+        //        guard let colors = try JSONSerialization.jsonObject(with: try loadWrapperContents(fw, named: "colors"), options: []) as? [String : String] else {
+        //            throw ThemeLoaderError.invalidContents("colors")
+        //        }
         guard let c = j["colors"] as? [String : String] else {
             throw ThemeLoaderError.invalidContents("colors")
         }
@@ -73,33 +73,33 @@ let d = try Data(contentsOf: url, options: [ .uncached ])
         return try self.load(url: url)
     }
 
-//    private func loadWrapperContents(_ wrapper : FileWrapper, named name : String) throws -> Data {
-//        log.debug("\(#function): wrapper=\(wrapper), name=\(name)")
-//        guard let wrappers = wrapper.fileWrappers else {
-//            throw ThemeLoaderError.missingContents("file-wrapper")
-//        }
-//        let filename = "\(name).json"
-//        guard let w = wrappers[filename] else {
-//            throw ThemeLoaderError.missingContents(filename)
-//        }
-//        guard let d = w.regularFileContents else {
-//            throw ThemeLoaderError.invalidContents(filename)
-//        }
-//
-//        return d
-//    }
-
+    //    private func loadWrapperContents(_ wrapper : FileWrapper, named name : String) throws -> Data {
+    //        log.debug("\(#function): wrapper=\(wrapper), name=\(name)")
+    //        guard let wrappers = wrapper.fileWrappers else {
+    //            throw ThemeLoaderError.missingContents("file-wrapper")
+    //        }
+    //        let filename = "\(name).json"
+    //        guard let w = wrappers[filename] else {
+    //            throw ThemeLoaderError.missingContents(filename)
+    //        }
+    //        guard let d = w.regularFileContents else {
+    //            throw ThemeLoaderError.invalidContents(filename)
+    //        }
+    //
+    //        return d
+    //    }
+    
     private func processFont(_ json : [String : Any], named name : String) throws -> String {
         log.debug("\(#function): json=\(json), name=\(name)")
-//        guard let fontInfo = json[name] as? [String : Any] else {
-//            throw ThemeLoaderError.missingContents(name)
-//        }
+        //        guard let fontInfo = json[name] as? [String : Any] else {
+        //            throw ThemeLoaderError.missingContents(name)
+        //        }
         guard let fontName = json[name] as? String else {
             throw ThemeLoaderError.invalidContents(name)
         }
-//        guard let fontSize = fontInfo["size"] as? Float else {
-//            throw ThemeLoaderError.invalidContents("size")
-//        }
+        //        guard let fontSize = fontInfo["size"] as? Float else {
+        //            throw ThemeLoaderError.invalidContents("size")
+        //        }
         let fontSize : CGFloat = 17
         guard let font = UIFont(name: fontName, size: fontSize) else {
             throw ThemeLoaderError.invalidContents("\(fontName)/\(fontSize)")
