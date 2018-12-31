@@ -23,7 +23,8 @@ public enum ThemeColorType : String {
     case main
     case accent1
     case accent2
-    case background
+    case background1
+    case background2 
 }
 
 public enum ThemeFontType : String {

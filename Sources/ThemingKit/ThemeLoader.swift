@@ -16,21 +16,18 @@ open class ThemeLoader {
     open func load(url : URL) throws -> Theme {
         log.info("Loading theme from URL: \(url.absoluteString).")
 
-        let fw = try FileWrapper(url: url, options: [ .immediate, .withoutMapping ])
+let d = try Data(contentsOf: url, options: [ .uncached ])
 
-        guard let meta = try JSONSerialization.jsonObject(with: try loadWrapperContents(fw, named: "meta"), options: []) as? [String : String] else {
-            throw ThemeLoaderError.invalidContents("meta")
-        }
-        let identifier = try get("id", from: meta)
-        let name = try get("name", from: meta)
+        guard let j = try JSONSerialization.jsonObject(with: d, options: []) as? [String : Any] else {
+        throw ThemeLoaderError.invalidContents(url.absoluteString)
+    }
+
+        let identifier = try get("id", from: j)
+        let name = try get("name", from: j)
 
         let style : ThemeStyle
-        guard let ui = try JSONSerialization.jsonObject(with: try loadWrapperContents(fw, named: "ui"), options: []) as? [String : Any] else {
-            throw ThemeLoaderError.invalidContents("ui")
-        }
-        if let s = ui["style"] as? String,
-            //     let i = Int(s),
-            let ts = ThemeStyle(rawValue: s) {
+     let s = try get("style", from: j)
+            if let ts = ThemeStyle(rawValue: s) {
             log.debug("ts=\(ts)")
             style = ts
         }
@@ -39,32 +36,33 @@ open class ThemeLoader {
             style = .dark
         }
 
-        guard let fonts = try JSONSerialization.jsonObject(with: try loadWrapperContents(fw, named: "fonts"), options: []) as? [String : Any] else {
+        guard let f = j["fonts"] as? [String : String] else {
             throw ThemeLoaderError.invalidContents("fonts")
         }
-        let defaultFont = try processFont(fonts, named: "defaultFont")
-        let defaultBoldFont = try processFont(fonts, named: "defaultBoldFont")
-        let secondaryFont = try processFont(fonts, named: "secondaryFont")
-        let secondaryBoldFont = try processFont(fonts, named: "secondaryBoldFont")
+        let primaryFontName = try processFont(f, named: "primary")
+        let secondaryFontName = try processFont(f, named: "secondary")
 
-        guard let colors = try JSONSerialization.jsonObject(with: try loadWrapperContents(fw, named: "colors"), options: []) as? [String : String] else {
+//        guard let colors = try JSONSerialization.jsonObject(with: try loadWrapperContents(fw, named: "colors"), options: []) as? [String : String] else {
+//            throw ThemeLoaderError.invalidContents("colors")
+//        }
+        guard let c = j["colors"] as? [String : String] else {
             throw ThemeLoaderError.invalidContents("colors")
         }
-        let mainColor = try UIColor.from(hexValue: try get("mainColor", from: colors))
-        let accentColor = try UIColor.from(hexValue: try get("accentColor", from: colors))
-        let backgroundColor = try UIColor.from(hexValue: try get("backgroundColor", from: colors))
-        let secondAccentColor = try UIColor.from(hexValue: try get("secondAccentColor", from: colors))
+        let mainColor = try UIColor.from(hexValue: try get("main", from: c))
+        let accent1Color = try UIColor.from(hexValue: try get("accent1", from: c))
+        let accent2Color = try UIColor.from(hexValue: try get("accent2", from: c))
+        let background1Color = try UIColor.from(hexValue: try get("background1", from: c))
+        let background2Color = try UIColor.from(hexValue: try get("background2", from: c))
 
         log.debug("Creating theme object.")
         var theme = Theme(id: identifier, name: name, style: style)
-        theme.defaultFont = defaultFont
-        theme.defaultBoldFont = defaultBoldFont
-        theme.secondaryFont = secondaryFont
-        theme.secondaryBoldFont = secondaryBoldFont
+        theme.primaryFontName = primaryFontName
+        theme.secondaryFontName = secondaryFontName
         theme.mainColor = mainColor
-        theme.accentColor = accentColor
-        theme.secondAccentColor = secondAccentColor
-        theme.backgroundColor = backgroundColor
+        theme.accent1Color = accent1Color
+        theme.accent2Color = accent2Color
+        theme.background1Color = background1Color
+        theme.background2Color = background2Color
 
         return theme
     }
@@ -75,38 +73,39 @@ open class ThemeLoader {
         return try self.load(url: url)
     }
 
-    private func loadWrapperContents(_ wrapper : FileWrapper, named name : String) throws -> Data {
-        log.debug("\(#function): wrapper=\(wrapper), name=\(name)")
-        guard let wrappers = wrapper.fileWrappers else {
-            throw ThemeLoaderError.missingContents("file-wrapper")
-        }
-        let filename = "\(name).json"
-        guard let w = wrappers[filename] else {
-            throw ThemeLoaderError.missingContents(filename)
-        }
-        guard let d = w.regularFileContents else {
-            throw ThemeLoaderError.invalidContents(filename)
-        }
+//    private func loadWrapperContents(_ wrapper : FileWrapper, named name : String) throws -> Data {
+//        log.debug("\(#function): wrapper=\(wrapper), name=\(name)")
+//        guard let wrappers = wrapper.fileWrappers else {
+//            throw ThemeLoaderError.missingContents("file-wrapper")
+//        }
+//        let filename = "\(name).json"
+//        guard let w = wrappers[filename] else {
+//            throw ThemeLoaderError.missingContents(filename)
+//        }
+//        guard let d = w.regularFileContents else {
+//            throw ThemeLoaderError.invalidContents(filename)
+//        }
+//
+//        return d
+//    }
 
-        return d
-    }
-
-    private func processFont(_ json : [String : Any], named name : String) throws -> UIFont{
+    private func processFont(_ json : [String : Any], named name : String) throws -> String {
         log.debug("\(#function): json=\(json), name=\(name)")
-        guard let fontInfo = json[name] as? [String : Any] else {
-            throw ThemeLoaderError.missingContents(name)
+//        guard let fontInfo = json[name] as? [String : Any] else {
+//            throw ThemeLoaderError.missingContents(name)
+//        }
+        guard let fontName = json[name] as? String else {
+            throw ThemeLoaderError.invalidContents(name)
         }
-        guard let fontName = fontInfo["name"] as? String else {
-            throw ThemeLoaderError.invalidContents("name")
-        }
-        guard let fontSize = fontInfo["size"] as? Float else {
-            throw ThemeLoaderError.invalidContents("size")
-        }
-        guard let font = UIFont(name: fontName, size: CGFloat(fontSize)) else {
+//        guard let fontSize = fontInfo["size"] as? Float else {
+//            throw ThemeLoaderError.invalidContents("size")
+//        }
+        let fontSize : CGFloat = 17
+        guard let font = UIFont(name: fontName, size: fontSize) else {
             throw ThemeLoaderError.invalidContents("\(fontName)/\(fontSize)")
         }
 
-        return font
+        return font.familyName
     }
 
     private func get(_ key : String, from dict : [String : Any]) throws -> String {

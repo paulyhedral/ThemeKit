@@ -12,57 +12,74 @@ import UIKit
 public class ThemeWriter {
 
     private let url : URL
-    private let fileWrapper : FileWrapper
+    //    private let fileWrapper : FileWrapper
 
     public init(url : URL) {
         self.url = url
-        self.fileWrapper = FileWrapper(directoryWithFileWrappers: [:])
+        //        self.fileWrapper = FileWrapper(directoryWithFileWrappers: [:])
     }
 
     public func write(theme : Theme) throws {
         log.debug("\(#function): theme=\(theme)")
 
-        let meta : [String : String] = [
+        let json : [String : Any] = [
             "id": theme.id,
             "name": theme.name,
+            "style": "\(theme.style.rawValue)",
+            "colors": [
+                "main": theme.mainColor.hexString(componentSize: 2, withAlpha: true),
+                "accent1": theme.accent1Color.hexString(componentSize: 2, withAlpha: true),
+                "accent2": theme.accent2Color.hexString(componentSize: 2, withAlpha: true),
+                "background1": theme.background1Color.hexString(componentSize: 2, withAlpha: true),
+                "background2": theme.background2Color.hexString(componentSize: 2, withAlpha: true),
+            ],
+            "fonts": [
+                "primary": theme.primaryFontName,
+                "secondary": theme.secondaryFontName,
+            ]
         ]
-        self.fileWrapper.addRegularFile(withContents: try jsonToData(meta), preferredFilename: "meta.json")
+        log.debug("json=\(json)")
+        //        let meta : [String : String] = [
+        //        ]
+        //        self.fileWrapper.addRegularFile(withContents: try jsonToData(meta), preferredFilename: "meta.json")
+        //
+        //         let ui : [String : String] = [
+        //         ]
+        //         log.debug("Adding ui.json file to wrapper.")
+        //         self.fileWrapper.addRegularFile(withContents: try jsonToData(ui), preferredFilename: "ui.json")
+        //
+        //        let fonts : [String : Any] = [
+        //            "defaultFont": buildFontInfo(theme.defaultFont),
+        //            "defaultBoldFont": buildFontInfo(theme.defaultBoldFont),
+        //            "secondaryFont": buildFontInfo(theme.secondaryFont),
+        //            "secondaryBoldFont": buildFontInfo(theme.secondaryBoldFont),
+        //        ]
+        //        log.debug("Adding fonts.json file to wrapper.")
+        //        self.fileWrapper.addRegularFile(withContents: try jsonToData(fonts), preferredFilename: "fonts.json")
+        //
+        //        let colors : [String : String] = [
+        //            "mainColor": theme.mainColor.hexString(),
+        //            "accentColor": theme.accentColor.hexString(),
+        //            "secondAccentColor": theme.secondAccentColor.hexString(),
+        //            "backgroundColor": theme.backgroundColor.hexString(),
+        //        ]
+        //        log.debug("Adding colors.json file to wrapper.")
+        //        self.fileWrapper.addRegularFile(withContents: try jsonToData(colors), preferredFilename: "colors.json")
 
-         let ui : [String : String] = [
-             "style": "\(theme.style.rawValue)",
-         ]
-         log.debug("Adding ui.json file to wrapper.")
-         self.fileWrapper.addRegularFile(withContents: try jsonToData(ui), preferredFilename: "ui.json")
-
-        let fonts : [String : Any] = [
-            "defaultFont": buildFontInfo(theme.defaultFont),
-            "defaultBoldFont": buildFontInfo(theme.defaultBoldFont),
-            "secondaryFont": buildFontInfo(theme.secondaryFont),
-            "secondaryBoldFont": buildFontInfo(theme.secondaryBoldFont),
-        ]
-        log.debug("Adding fonts.json file to wrapper.")
-        self.fileWrapper.addRegularFile(withContents: try jsonToData(fonts), preferredFilename: "fonts.json")
-
-        let colors : [String : String] = [
-            "mainColor": theme.mainColor.hexString(),
-            "accentColor": theme.accentColor.hexString(),
-            "secondAccentColor": theme.secondAccentColor.hexString(),
-            "backgroundColor": theme.backgroundColor.hexString(),
-        ]
-        log.debug("Adding colors.json file to wrapper.")
-        self.fileWrapper.addRegularFile(withContents: try jsonToData(colors), preferredFilename: "colors.json")
+        let data = try jsonToData(json)
+        log.debug("data=\(data)")
 
         log.info("Writing file wrapper to URL \(self.url)...")
-        try self.fileWrapper.write(to: self.url, options: [ .atomic ], originalContentsURL: nil)
+        try data.write(to: self.url, options: [ .atomic ])
     }
 
-    private func buildFontInfo(_ font : UIFont) -> [String : Any] {
-        let fontInfo : [String : Any] = [
-            "name": font.familyName,
-            "size": Float(font.pointSize),
-        ]
-        return fontInfo
-    }
+    //    private func buildFontInfo(_ font : UIFont) -> [String : Any] {
+    //        let fontInfo : [String : Any] = [
+    //            "name": font.familyName,
+    //            "size": Float(font.pointSize),
+    //        ]
+    //        return fontInfo
+    //    }
 
     private func jsonToData(_ json : [String : Any]) throws -> Data {
         var options : JSONSerialization.WritingOptions = [ .prettyPrinted ]

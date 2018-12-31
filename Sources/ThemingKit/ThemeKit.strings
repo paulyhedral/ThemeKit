@@ -1,0 +1,13 @@
+/* 
+  Localizable.strings
+  ThemeKit
+
+  Created by Paul Schifferer on 8/30/18.
+  
+*/
+
+"color.tint.label" = "Tint";
+"color.alternatetint.label" = "Alternate Tint";
+"color.titlebartext.label" = "Title Bar Text";
+"color.titlebarbuttonlabel.label" = "Title Bar Button Label";
+"color.titlebarbackground.label" = "Title Bar Background";

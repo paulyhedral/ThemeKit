@@ -13,27 +13,25 @@ public struct Theme {
     public let id : String
     public var name : String
     public var style : ThemeStyle
-    public var defaultFont : UIFont
-    public var defaultBoldFont : UIFont
-    public var secondaryFont : UIFont
-    public var secondaryBoldFont : UIFont
+    public var primaryFontName : String
+    public var secondaryFontName : String
     public var mainColor : UIColor
-    public var accentColor : UIColor
-    public var secondAccentColor : UIColor
-    public var backgroundColor : UIColor
+    public var accent1Color : UIColor
+    public var accent2Color : UIColor
+    public var background1Color : UIColor
+    public var background2Color : UIColor
 
     public init(id : String, name : String, style : ThemeStyle) {
         self.id = id
         self.name = name
         self.style = style
-        self.defaultFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
-        self.defaultBoldFont = UIFont.boldSystemFont(ofSize: UIFont.systemFontSize)
-        self.secondaryFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
-        self.secondaryBoldFont = UIFont.boldSystemFont(ofSize: UIFont.systemFontSize)
+        self.primaryFontName = UIFont.systemFont(ofSize: UIFont.systemFontSize).familyName
+        self.secondaryFontName = UIFont.systemFont(ofSize: UIFont.systemFontSize).familyName
         self.mainColor = .black
-        self.accentColor = .white
-        self.secondAccentColor = .blue
-        self.backgroundColor = .orange
+        self.accent1Color = .white
+        self.accent2Color = .blue
+        self.background1Color = .orange
+        self.background2Color = .green
     }
 }
 
@@ -49,14 +47,13 @@ extension Theme : Equatable, Hashable {
         v ^= id.hashValue
         v ^= name.hashValue
         v ^= style.hashValue
-        v ^= defaultFont.hashValue
-        v ^= defaultBoldFont.hashValue
-        v ^= secondaryFont.hashValue
-        v ^= secondaryBoldFont.hashValue
+        v ^= primaryFontName.hashValue
+        v ^= secondaryFontName.hashValue
         v ^= mainColor.hashValue
-        v ^= accentColor.hashValue
-        v ^= secondAccentColor.hashValue
-        v ^= backgroundColor.hashValue
+        v ^= accent1Color.hashValue
+        v ^= accent2Color.hashValue
+        v ^= background1Color.hashValue
+        v ^= background2Color.hashValue
 
         return v
     }
@@ -67,10 +64,11 @@ extension Theme : CustomStringConvertible {
 
     public var description: String {
         return "Theme { id=\(id); name=\(name); style=\(style); " +
-            "defaultFont=\(defaultFont); defaultBoldFont=\(defaultBoldFont); " +
-            "secondaryFont=\(secondaryFont); secondaryBoldFont=\(secondaryBoldFont); " +
-            "mainColor=\(mainColor); accentColor=\(accentColor); secondAccentColor=\(secondAccentColor); " +
-            "backgroundColor=\(backgroundColor) }"
+            "primaryFontName=\(primaryFontName); " +
+            "secondaryFontName=\(secondaryFontName); " +
+            "mainColor=\(mainColor); accent1Color=\(accent1Color); accent2Color=\(accent2Color); " +
+            "background1Color=\(background1Color), background2Color=\(background2Color) " +
+        "}"
     }
 
 }
@@ -80,14 +78,13 @@ extension Theme {
 
     public mutating func copy(from theme : Theme) {
         self.style = theme.style 
-        self.defaultFont = theme.defaultFont
-        self.defaultBoldFont = theme.defaultBoldFont
-        self.secondaryFont = theme.secondaryFont
-        self.secondaryBoldFont = theme.secondaryBoldFont
+        self.primaryFontName = theme.primaryFontName
+        self.secondaryFontName = theme.secondaryFontName
         self.mainColor = theme.mainColor
-        self.accentColor = theme.accentColor
-        self.secondAccentColor = theme.secondAccentColor
-        self.backgroundColor = theme.backgroundColor
+        self.accent1Color = theme.accent1Color
+        self.accent2Color = theme.accent2Color
+        self.background1Color = theme.background1Color
+        self.background2Color = theme.background2Color
     }
 
 }
