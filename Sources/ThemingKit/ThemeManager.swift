@@ -27,8 +27,8 @@ public class ThemeManager {
         }
     }
 
-    private var packagedThemes : [String : Theme] = [:]
-    private var userThemes : [String : Theme] = [:]
+    private var packagedThemeMap : [String : Theme] = [:]
+    private var userThemeMap : [String : Theme] = [:]
 
     public init() {
         self.currentTheme = Theme(id: ThemeIdentifier.default.rawValue,
@@ -37,10 +37,21 @@ public class ThemeManager {
     }
 
     public func allThemes() -> [Theme] {
-        let packagedThemes = Array<Theme>(self.packagedThemes.values)
-        let userThemes = Array<Theme>(self.userThemes.values)
-        let allThemes = (packagedThemes + userThemes)
-        let availableThemes = allThemes.filter { self.delegate?.isThemeAvailable($0, in: self) ?? true }
+        let packagedThemes = Array<Theme>(self.packagedThemeMap.values)
+        let userThemes = Array<Theme>(self.userThemeMap.values)
+        return sortAndFilter(packagedThemes + userThemes)
+    }
+
+    public func packagedThemes() -> [Theme] {
+        return sortAndFilter(Array<Theme>(self.packagedThemeMap.values))
+    }
+
+    public func userThemes() -> [Theme] {
+        return sortAndFilter(Array<Theme>(self.userThemeMap.values))
+    }
+
+    private func sortAndFilter(_ themes : [Theme]) -> [Theme] {
+        let availableThemes = themes.filter { self.delegate?.isThemeAvailable($0, in: self) ?? true }
         let sortedThemes = availableThemes.sorted(by: { $0.name < $1.name })
         return sortedThemes
     }
@@ -48,8 +59,8 @@ public class ThemeManager {
     public func theme(id : String) -> Theme? {
         log.debug("\(#function): id=\(id)")
 
-        let t = userThemes[id] ?? packagedThemes[id]
-//        for theme in (Array<Theme>(packagedThemes.values) + Array<Theme>(userThemes.values)) {
+        let t = userThemeMap[id] ?? packagedThemeMap[id]
+        //        for theme in (Array<Theme>(packagedThemes.values) + Array<Theme>(userThemes.values)) {
         log.debug("theme=\(String(describing: t))")
 
         guard let theme = t else { return nil }
@@ -61,7 +72,7 @@ public class ThemeManager {
     public func save(theme : Theme) throws {
         log.debug("Saving theme: \(theme).")
 
-        userThemes[theme.id] = theme
+        userThemeMap[theme.id] = theme
 
         let fm = FileManager.default
 
@@ -80,7 +91,7 @@ public class ThemeManager {
 
         if resetting {
             log.debug("Resetting packaged theme list.")
-            self.packagedThemes.removeAll()
+            self.packagedThemeMap.removeAll()
         }
 
         let loader = PackagedThemeLoader(bundle: bundle)
@@ -91,7 +102,7 @@ public class ThemeManager {
                 do {
                     let theme = try loader.load(url: url)
                     log.debug("theme=\(theme)")
-                    self.packagedThemes[theme.id] = theme
+                    self.packagedThemeMap[theme.id] = theme
                 }
                 catch {
                     log.error("Error while trying to load packaged theme at URL '\(url.absoluteString)': \(error)")
@@ -118,7 +129,7 @@ public class ThemeManager {
                     do {
                         let theme = try loader.load(url: url)
                         log.debug("theme=\(theme)")
-                        self.userThemes[theme.id] = theme
+                        self.userThemeMap[theme.id] = theme
                     }
                     catch {
                         log.error("Error while trying to load user-defined theme at url \(url): \(error)")
@@ -130,7 +141,7 @@ public class ThemeManager {
             }
         }
 
-        log.info("Loaded \(self.userThemes.count) theme(s).")
+        log.info("Loaded \(self.userThemeMap.count) theme(s).")
     }
 
     private func send(notification name : NSNotification.Name, for id : String) {
