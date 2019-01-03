@@ -86,6 +86,22 @@ public class ThemeManager {
         }
     }
 
+    public func remove(themeId : String) throws {
+        log.debug("Removing theme: \(themeId).")
+
+        userThemeMap[themeId] = nil
+
+        let fm = FileManager.default
+
+        if let docsUrl = fm.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let themeUrl = docsUrl.appendingPathComponent("custom-\(themeId).theme")
+            log.debug("themeUrl=\(themeUrl)")
+            try fm.removeItem(at: themeUrl)
+
+            send(notification: ThemeManager.Notification.ThemeRemoved, for: themeId)
+        }
+    }
+
     public func loadPackagedThemes(from bundle : Bundle, resetting : Bool = false) {
         log.info("Loading packaged themes from bundle: \(bundle)...")
 
@@ -164,6 +180,8 @@ extension ThemeManager {
         public static var ThemeChanged = NSNotification.Name("ThemeChanged")
         // sent when a theme's components change value
         public static var ThemeUpdated = NSNotification.Name("ThemeUpdated")
+        // sent when a user theme is removed
+        public static var ThemeRemoved = NSNotification.Name("ThemeRemoved")
 
         public enum Keys : String {
             case themeIdentifier = "id"
