@@ -36,3 +36,11 @@ public enum ThemeStyle : String {
     case dark
     case light 
 }
+
+#if swift(>=4.2)
+
+extension ThemeStyle : CaseIterable {
+
+}
+
+#endif
