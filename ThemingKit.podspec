@@ -22,5 +22,5 @@ Pod::Spec.new do |s|
     s.resources               = 'Sources/ThemingKit/**/*.strings'
 
 	s.dependency              'SwiftyBeaver'
-    s.dependency              'KBRoundedButton'
+    #s.dependency              'KBRoundedButton'
 end
