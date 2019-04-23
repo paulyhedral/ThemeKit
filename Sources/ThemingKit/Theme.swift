@@ -41,6 +41,20 @@ extension Theme : Equatable, Hashable {
         return lhs.hashValue == rhs.hashValue
     }
 
+    #if swift(>=4.2)
+    public func hash(into hasher : inout Hasher) {
+        hasher.combine(id)
+        hasher.combine(name)
+        hasher.combine(style)
+        hasher.combine(primaryFontName)
+        hasher.combine(secondaryFontName)
+        hasher.combine(mainColor)
+        hasher.combine(accent1Color)
+        hasher.combine(accent2Color)
+        hasher.combine(background1Color)
+        hasher.combine(background2Color)
+    }
+    #else
     public var hashValue: Int {
         var v : Int = 0
 
@@ -57,6 +71,7 @@ extension Theme : Equatable, Hashable {
 
         return v
     }
+    #endif
 }
 
 
