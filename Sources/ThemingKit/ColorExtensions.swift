@@ -90,7 +90,7 @@ extension UIColor {
         log.debug("end=\(end)")
         let range = start..<end
         log.debug("range=\(range)")
-        let substring = string.substring(with: range)
+        let substring = String(string[range])
         log.debug("substring=\(substring)")
         let scanner = Scanner(string: substring)
         scanner.caseSensitive = false
