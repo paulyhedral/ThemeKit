@@ -11,6 +11,6 @@ EXECUTABLE_NAME = ThemingKit
 
 INFOPLIST_FILE = Sources/ThemingKit/Info.plist
 
-SWIFT_VERSION = 4.1
+SWIFT_VERSION = 4.2
 
 LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/Frameworks @loader_path/../Frameworks
