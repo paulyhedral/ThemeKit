@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name                    = 'ThemingKit'
-    s.version                 = '1.3'
+    s.version                 = '1.4'
     s.summary                 = 'Library for theming an iOS application easily'
 
     s.homepage                = 'https://pilgrimagesoftware.com'
@@ -13,10 +13,10 @@ Pod::Spec.new do |s|
     s.frameworks              = 'Foundation'
     s.ios.frameworks          = 'UIKit'
 
-    s.ios.deployment_target   = '12.4'
+    s.ios.deployment_target   = '13.0'
 
     s.requires_arc            = true
-    s.swift_version		 	  = '4.2'
+    s.swift_version		 	  = '5.3'
 
     s.source_files            = 'Sources/ThemingKit/**/*.{h,m,c,swift}'
     s.resources               = 'Sources/ThemingKit/**/*.strings'
