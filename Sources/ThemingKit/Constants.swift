@@ -7,10 +7,8 @@
 //
 
 import Foundation
-import SwiftyBeaver
 
-
-let log = SwiftyBeaver.self
+public let logPrefix = "com.pilgrimagesoftware.theme"
 
 public enum ThemeIdentifier : String {
     case dark = "dark"
@@ -24,7 +22,7 @@ public enum ThemeColorType : String {
     case accent1
     case accent2
     case background1
-    case background2 
+    case background2
 }
 
 public enum ThemeFontType : String {
@@ -34,7 +32,7 @@ public enum ThemeFontType : String {
 
 public enum ThemeStyle : String {
     case dark
-    case light 
+    case light
 }
 
 #if swift(>=4.2)

@@ -7,8 +7,10 @@
 //
 
 import UIKit
-import SwiftyBeaver
+import Logging
 
+
+fileprivate let logger = Logger(label: Constants.logPrefix+"ThemeManager")
 
 public protocol ThemeManagerDelegate : class {
     func process(theme : Theme, in themeManager : ThemeManager) -> Theme
@@ -57,11 +59,11 @@ public class ThemeManager {
     }
 
     public func theme(id : String) -> Theme? {
-        log.debug("\(#function): id=\(id)")
+        logger.debug("\(#function): id=\(id)")
 
         let t = userThemeMap[id] ?? packagedThemeMap[id]
         //        for theme in (Array<Theme>(packagedThemes.values) + Array<Theme>(userThemes.values)) {
-        log.debug("theme=\(String(describing: t))")
+        logger.debug("theme=\(String(describing: t))")
 
         guard let theme = t else { return nil }
         guard (self.delegate?.isThemeAvailable(theme, in: self) ?? true) else { return nil }
@@ -70,7 +72,7 @@ public class ThemeManager {
     }
 
     public func save(theme : Theme) throws {
-        log.debug("Saving theme: \(theme).")
+        logger.debug("Saving theme: \(theme).")
 
         userThemeMap[theme.id] = theme
 
@@ -78,7 +80,7 @@ public class ThemeManager {
 
         if let docsUrl = fm.urls(for: .documentDirectory, in: .userDomainMask).first {
             let themeUrl = docsUrl.appendingPathComponent("custom-\(theme.id).theme")
-            log.debug("themeUrl=\(themeUrl)")
+            logger.debug("themeUrl=\(themeUrl)")
             let writer = ThemeWriter(url: themeUrl)
             try writer.write(theme: theme)
 
@@ -87,7 +89,7 @@ public class ThemeManager {
     }
 
     public func remove(themeId : String) throws {
-        log.debug("Removing theme: \(themeId).")
+        logger.debug("Removing theme: \(themeId).")
 
         userThemeMap[themeId] = nil
 
@@ -95,7 +97,7 @@ public class ThemeManager {
 
         if let docsUrl = fm.urls(for: .documentDirectory, in: .userDomainMask).first {
             let themeUrl = docsUrl.appendingPathComponent("custom-\(themeId).theme")
-            log.debug("themeUrl=\(themeUrl)")
+            logger.debug("themeUrl=\(themeUrl)")
             try fm.removeItem(at: themeUrl)
 
             send(notification: ThemeManager.Notification.ThemeRemoved, for: themeId)
@@ -103,32 +105,32 @@ public class ThemeManager {
     }
 
     public func loadPackagedThemes(from bundle : Bundle, resetting : Bool = false) {
-        log.info("Loading packaged themes from bundle: \(bundle)...")
+        logger.info("Loading packaged themes from bundle: \(bundle)...")
 
         if resetting {
-            log.debug("Resetting packaged theme list.")
+            logger.debug("Resetting packaged theme list.")
             self.packagedThemeMap.removeAll()
         }
 
         let loader = PackagedThemeLoader(bundle: bundle)
         if let urls = bundle.urls(forResourcesWithExtension: "theme", subdirectory: nil) {
-            log.debug("urls=\(urls)")
+            logger.debug("urls=\(urls)")
             for url in urls {
-                log.debug("url=\(url.absoluteString)")
+                logger.debug("url=\(url.absoluteString)")
                 do {
                     let theme = try loader.load(url: url)
-                    log.debug("theme=\(theme)")
+                    logger.debug("theme=\(theme)")
                     self.packagedThemeMap[theme.id] = theme
                 }
                 catch {
-                    log.error("Error while trying to load packaged theme at URL '\(url.absoluteString)': \(error)")
+                    logger.error("Error while trying to load packaged theme at URL '\(url.absoluteString)': \(error)")
                 }
             }
         }
     }
 
     public func loadUserThemes() {
-        log.info("Loading user themes...")
+        logger.info("Loading user themes...")
 
         let fm = FileManager.default
 
@@ -137,31 +139,31 @@ public class ThemeManager {
 
             do {
                 let urls = try fm.contentsOfDirectory(at: docsUrl, includingPropertiesForKeys: nil, options: [ .skipsHiddenFiles, .skipsPackageDescendants, .skipsSubdirectoryDescendants ])
-                log.debug("urls=\(urls)")
+                logger.debug("urls=\(urls)")
                 for url in urls {
-                    log.debug("url=\(url)")
+                    logger.debug("url=\(url)")
                     guard url.pathExtension == "theme" else { continue }
 
                     do {
                         let theme = try loader.load(url: url)
-                        log.debug("theme=\(theme)")
+                        logger.debug("theme=\(theme)")
                         self.userThemeMap[theme.id] = theme
                     }
                     catch {
-                        log.error("Error while trying to load user-defined theme at url \(url): \(error)")
+                        logger.error("Error while trying to load user-defined theme at url \(url): \(error)")
                     }
                 }
             }
             catch {
-                log.error("Error while trying to load user-defined themes: \(error)")
+                logger.error("Error while trying to load user-defined themes: \(error)")
             }
         }
 
-        log.info("Loaded \(self.userThemeMap.count) theme(s).")
+        logger.info("Loaded \(self.userThemeMap.count) theme(s).")
     }
 
     private func send(notification name : NSNotification.Name, for id : String) {
-        log.debug("\(#function): id=\(id)")
+        logger.debug("\(#function): id=\(id)")
 
         NotificationCenter.default.post(name: name,
                                         object: self,

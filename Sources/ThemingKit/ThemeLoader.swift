@@ -7,14 +7,17 @@
 //
 
 import UIKit
+import Logging
 
+
+fileprivate let logger = Logger(label: Constants.logPrefix+"ThemeLoader")
 
 open class ThemeLoader {
 
     var baseURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
 
     open func load(url : URL) throws -> Theme {
-        log.info("Loading theme from URL: \(url.absoluteString).")
+        logger.info("Loading theme from URL: \(url.absoluteString).")
 
         let d = try Data(contentsOf: url, options: [ .uncached ])
 
@@ -28,11 +31,11 @@ open class ThemeLoader {
         let style : ThemeStyle
         let s = try get("style", from: j)
         if let ts = ThemeStyle(rawValue: s) {
-            log.debug("ts=\(ts)")
+            logger.debug("ts=\(ts)")
             style = ts
         }
         else {
-            log.debug("Setting style to .dark")
+            logger.debug("Setting style to .dark")
             style = .dark
         }
 
@@ -54,7 +57,7 @@ open class ThemeLoader {
         let background1Color = try UIColor.from(hexValue: try get("background1", from: c))
         let background2Color = try UIColor.from(hexValue: try get("background2", from: c))
 
-        log.debug("Creating theme object.")
+        logger.debug("Creating theme object.")
         var theme = Theme(id: identifier, name: name, style: style)
         theme.primaryFontName = primaryFontName
         theme.secondaryFontName = secondaryFontName
@@ -68,13 +71,13 @@ open class ThemeLoader {
     }
 
     open func load(id : String) throws -> Theme {
-        log.info("Loading theme using identifier '\(id)'.")
+        logger.info("Loading theme using identifier '\(id)'.")
         let url = baseURL.appendingPathComponent("\(id).theme")
         return try self.load(url: url)
     }
 
     //    private func loadWrapperContents(_ wrapper : FileWrapper, named name : String) throws -> Data {
-    //        log.debug("\(#function): wrapper=\(wrapper), name=\(name)")
+    //        logger.debug("\(#function): wrapper=\(wrapper), name=\(name)")
     //        guard let wrappers = wrapper.fileWrappers else {
     //            throw ThemeLoaderError.missingContents("file-wrapper")
     //        }
@@ -88,9 +91,9 @@ open class ThemeLoader {
     //
     //        return d
     //    }
-    
+
     private func processFont(_ json : [String : Any], named name : String) throws -> String {
-        log.debug("\(#function): json=\(json), name=\(name)")
+        logger.debug("\(#function): json=\(json), name=\(name)")
         //        guard let fontInfo = json[name] as? [String : Any] else {
         //            throw ThemeLoaderError.missingContents(name)
         //        }
@@ -109,7 +112,7 @@ open class ThemeLoader {
     }
 
     private func get(_ key : String, from dict : [String : Any]) throws -> String {
-        log.debug("\(#function): key=\(key), dict=\(dict)")
+        logger.debug("\(#function): key=\(key), dict=\(dict)")
         if let value = dict[key] as? String {
             return value
         }

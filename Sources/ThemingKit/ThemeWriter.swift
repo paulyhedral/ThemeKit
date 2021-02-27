@@ -7,7 +7,10 @@
 //
 
 import UIKit
+import Logging
 
+
+fileprivate let logger = Logger(label: Constants.logPrefix+"ThemeWriter")
 
 public class ThemeWriter {
 
@@ -20,7 +23,7 @@ public class ThemeWriter {
     }
 
     public func write(theme : Theme) throws {
-        log.debug("\(#function): theme=\(theme)")
+        logger.debug("\(#function): theme=\(theme)")
 
         let json : [String : Any] = [
             "id": theme.id,
@@ -38,14 +41,14 @@ public class ThemeWriter {
                 "secondary": theme.secondaryFontName,
             ]
         ]
-        log.debug("json=\(json)")
+        logger.debug("json=\(json)")
         //        let meta : [String : String] = [
         //        ]
         //        self.fileWrapper.addRegularFile(withContents: try jsonToData(meta), preferredFilename: "meta.json")
         //
         //         let ui : [String : String] = [
         //         ]
-        //         log.debug("Adding ui.json file to wrapper.")
+        //         logger.debug("Adding ui.json file to wrapper.")
         //         self.fileWrapper.addRegularFile(withContents: try jsonToData(ui), preferredFilename: "ui.json")
         //
         //        let fonts : [String : Any] = [
@@ -54,7 +57,7 @@ public class ThemeWriter {
         //            "secondaryFont": buildFontInfo(theme.secondaryFont),
         //            "secondaryBoldFont": buildFontInfo(theme.secondaryBoldFont),
         //        ]
-        //        log.debug("Adding fonts.json file to wrapper.")
+        //        logger.debug("Adding fonts.json file to wrapper.")
         //        self.fileWrapper.addRegularFile(withContents: try jsonToData(fonts), preferredFilename: "fonts.json")
         //
         //        let colors : [String : String] = [
@@ -63,13 +66,13 @@ public class ThemeWriter {
         //            "secondAccentColor": theme.secondAccentColor.hexString(),
         //            "backgroundColor": theme.backgroundColor.hexString(),
         //        ]
-        //        log.debug("Adding colors.json file to wrapper.")
+        //        logger.debug("Adding colors.json file to wrapper.")
         //        self.fileWrapper.addRegularFile(withContents: try jsonToData(colors), preferredFilename: "colors.json")
 
         let data = try jsonToData(json)
-        log.debug("data=\(data)")
+        logger.debug("data=\(data)")
 
-        log.info("Writing file wrapper to URL \(self.url)...")
+        logger.info("Writing file wrapper to URL \(self.url)...")
         try data.write(to: self.url, options: [ .atomic ])
     }
 
